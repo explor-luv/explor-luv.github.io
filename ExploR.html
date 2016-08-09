@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ExploR</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel= "stylesheet" href="ExploR.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+
+  .jumbotron {
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    #city {
+      text-align: center;
+      text-decoration: underline;
+    }
+
+  </style>
+  <script>
+
+  /*this is to toggle the nav bar*/
+  function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+  }
+
+</script>
+
+</head>
+<body> 
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">ExploR</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href=#city>Cities</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="AddCity.html">Add a City</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <section class="jumbotron">
+  <div class="container text-center">
+      <h1><img src = "logo_website.png" height = "250" width = "250"></h1>
+      <p><font color = "black">Find the World. Discover the World. Enjoy the World.</p>
+        <div class = "search-input-holder">
+</section>
+
+<div class="container-fluid bg-3 tsext-center">
+  <h3 id="city">Cities</h3><br>
+  <div class="row">
+    <div class="col-sm-3">
+      <p>Atlanta</p>
+      <a href= "Atlanta.html"><img src="Atlanta.jpg" class= "img-thumnail" alt= "Image" style= "width:250px; height:150px;" /></a>
+    </div>
+    <div class="col-sm-3">
+      <p>Boston</p>
+      <a href="boston.html"><img src="Boston.jpg" class= "img-thumnail" alt= "Image" style= "width:250px; height:150px;"/></a>
+    </div>
+    <div class="col-sm-3">
+      <p>Chicago</p>
+      <a href="Chicago.html"><img src="chicago-2.jpg" class= "img-thumnail" alt= "Image" style= "width:250px; height:150px;" /></a>
+    </div>
+    <div class="col-sm-3">
+      <p>Denver</p>
+      <a href="Denver.html"><img src="denver-skyline-1.jpg" class= "img-thumnail" alt= "Image" style= "width:250px; height:150px;" /></a>
+    </div>
+  </div>
+</div><br>
+
+<div class="container-fluid bg-3 text-center">
+  <div class="row">
+    <div class="col-sm-3">
+      <p>Los Angeles</p>
+      <a href="LA.html"><img src="LA.jpg" class= "img-thumnail" alt= "Image" style= "width:250px; height:150px;" /></a>
+    </div>
+    <div class="col-sm-3">
+      <p>Miami</p>
+      <a href="Miami.html"><img src="Miami-21371.jpg" class= "img-thumnail" alt= "Image" style= "width:250px; height:150px;" /></a>
+    </div>
+    <div class="col-sm-3">
+      <p>Nashville</p>
+      <a href="Nashville.html"><img src="NDT.jpg" class= "img-thumnail" alt= "Image" style= "width:250px; height:150px;" /></a>
+    </div>
+    <div class="col-sm-3">
+      <p>New York City</p>
+      <a href="NYC.html"><img src="NYC-1.jpg" class= "img-thumnail" alt= "Image" style= "width:250px; height:150px;" /></a>
+    </div>
+  </div>
+</div><br><br>
+
+<div class="container-fluid bg-3 text-center">
+  <div class="row">
+    <div class="col-sm-3">
+      <p>Pittsburgh</p>
+      <a href="Pittsburgh.html"><img src="Pittsburgh.jpg" class= "img-thumnail" alt= "Image" style= "width:250px; height:150px;" /></a>
+    </div>
+    <div class="col-sm-3">
+      <p>San Diego</p>
+      <a href="SanDiego.html"><img src="SanDiego.jpeg" class= "img-thumnail" alt= "Image" style= "width:250px; height:150px;" /></a>
+    </div>
+    <div class="col-sm-3">
+      <p>San Francisco</p>
+      <a href="SanFran.html"><img src="SanFran.jpg" class= "img-thumnail" alt= "Image" style= "width:250px; height:150px;" /></a>
+    </div>
+    <div class="col-sm-3">
+      <p>Washington D.C.</p>
+      <a href="DC.html"><img src="DC.jpg" class= "img-thumnail" alt= "Image" style= "width:250px; height:150px;" /></a>
+    </div>
+  </div>
+</div><br><br>
+
+<footer class="container-fluid text-center">
+  <p> @ 2016 ExploR, LuV Inc.</p>
+</footer>
+
+</body>
+</html>
