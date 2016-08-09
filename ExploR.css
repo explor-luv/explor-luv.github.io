@@ -1,0 +1,50 @@
+/* Remove margins and padding from the list, and add a black background color */
+ul.topnav {
+list-style-type: none;
+margin: 0;
+padding: 0;
+overflow: hidden;
+background-color: #333;
+}
+/* Float the list items side by side */
+ul.topnav li {float: left;}
+/* Style the links inside the list items */
+ul.topnav li a {
+  display: inline-block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 17px;
+}
+/* Change background color of links on hover */
+ul.topnav li a:hover {background-color: #555;}
+/* Hide the list item that contains the link that should open and close the topnav on small screens */
+ul.topnav li.icon {display: none;}
+
+.col-sm-3 {
+  text-align: center;
+  margin: 0 auto;
+}
+
+
+/*main background picture */
+.jumbotron {
+  background-image: url(https://i.ytimg.com/vi/r6GQ_0c4-k8/maxresdefault.jpg);
+}
+
+
+
+
+/*search bar */
+.input[type=text] {
+    width: 130px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+/* When the input field gets focus, change its width to 100% */
+input[type=text]:focus {
+    width: 100%;
+}
