@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>New York City</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=BioRhyme" rel="stylesheet">
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+  <style>
+
+  #map-container, #map-container2, #map-container3, #map-container4, #map-container5, #map-container6, #map-container7 { height: 450px }
+
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+     #header{
+       font-family: 'BioRhyme', serif;
+       color: black;
+
+     }
+     .label{
+       color: black;
+       font-size: 100%;
+       margin: auto;
+     }
+
+    .btn, .btn-info, .btn-lg {
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+
+     .jumbotron{
+       background-image: url(NYC-1.jpg);
+       height: 100%;
+       background-attachment: fixed;
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: cover;
+       min-height: 390px;
+     }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="ExploR.html">ExploR</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="ExploR.html">Cities</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="AddCity.html">Add a City</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1 id = "header">New York City</h1>
+    <p><font color = "black">The Big Apple</font></p>
+  </div>
+</div>
+
+<div class="container-fluid bg-3 text-center">
+  <h3><font color = "black"><u>ExploR New York City!</u></font></h3><br>
+  <div class="row">
+
+    <div class="col-sm-3">
+      <p class = "label">Milk Bar</p>
+	  <!-- Trigger the modal with a button -->
+      <a href="#mapmodals" data-toggle="modal" role="button"><img src="http://milkbarstore.com/main/wp-content/uploads/2015/05/UpperWestSide-web.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade" id="mapmodals">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Milk Bar</h2>
+                <br>
+                <a href= "http://milkbarstore.com/main/wp-content/uploads/2015/05/UpperWestSide-web.jpg" style= "font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                <div class= "well" >
+                  <p><br><br><br> The Milk Bar is a dessert and bakery restaurant. The Milk Bar makes custom wedding cakes, and produces their own line of baking mixes. Along with their NYC site, they have six others (their Williamsburg kitchen have weekly baking classes). Though this place is more popular than most of ExploR's locations, it is worth the wait for their unique products.
+                  <br><br><br></p>
+              </div>
+            </div>
+              <div class="col-sm-6">
+                <img src="http://milkbarstore.com/main/wp-content/uploads/2012/04/home7.jpg"  class= "img-thumbnail">
+              </div>
+            </div>
+                <h4 style= "font-size: 20;"> Location </h4>
+                <p>  382 Metropolitan Ave, Brooklyn, NY 11211 </p>
+                <div id="map-container"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+<script>
+			var var_map;
+    		var var_location = new google.maps.LatLng(40.713898,-73.955494);
+
+     function map_init() {
+
+            var var_mapoptions = {
+              center: var_location,
+              zoom: 17,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              mapTypeControl: false,
+              panControl:false,
+              rotateControl:false,
+              streetViewControl: false,
+            };
+            var_map = new google.maps.Map(document.getElementById("map-container"),
+                var_mapoptions);
+
+
+          var var_marker = new google.maps.Marker({
+            position: var_location,
+            map: var_map,
+
+            maxWidth: 200,
+            maxHeight: 200
+          });
+
+          google.maps.event.addListener(var_marker, 'click', function() {
+             var_infowindow.open(var_map,var_marker);
+          });
+      }
+
+          google.maps.event.addDomListener(window, 'load', map_init);
+
+      //start of modal google map
+      $('#mapmodals').on('shown.bs.modal', function () {
+          google.maps.event.trigger(var_map, "resize");
+          var_map.setCenter(var_location);
+      });
+</script>
+
+    <div class="col-sm-3">
+      <p class = "label">Levain's Bakery</p>
+	  <a href="#mapmodals2" data-toggle="modal" role="button"><img src="http://www.westsiderag.com/wp-content/uploads/2012/03/levain-bakery-2.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade2" id="mapmodals2">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Levain's Bakery</h2>
+				<a href="http://www.yelp.com/biz/levain-bakery-new-york" style= "font-size:24; color:black; text-decoration:underline;">Ratings</a>
+			  <br>
+			  </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                <div class= "well">
+                  <p><br><br><br> Levain headquarters is a cozy neighborhood bakery where locals are greeted by name. A steady stream of loyal regulars stand side by side with tourists, eager to sample the legendary baked goods.
+From an inventive array of rustic breads to the world-famous six-ounce chocolate chip walnut cookie, everything is baked on-site, fresh every day from the finest natural ingredients. What doesn’t sell that day goes to help feed the hungry—a mission that has been solidly in place since the beginning.
+                  <br><br><br></p>
+              </div>
+            </div>
+              <div class="col-sm-6">
+                <img src="http://iamdjduckworth.com/wp-content/uploads/2014/10/levain-bakery-cookies.jpg"  class= "img-thumbnail">
+              </div>
+            </div>
+                <h4 style= "font-size: 20;"> Location </h4>
+                <p> 167 W 74th St, New York, NY 10023 </p>
+                <div id="map-container2"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+<script>
+			var var_map2;
+    		var var_location2 = new google.maps.LatLng(40.779967,-73.980323);
+
+     function map_init2() {
+
+            var var_mapoptions2 = {
+              center: var_location2,
+              zoom: 17,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              mapTypeControl: false,
+              panControl:false,
+              rotateControl:false,
+              streetViewControl: false,
+            };
+            var_map2 = new google.maps.Map(document.getElementById("map-container2"),
+                var_mapoptions2);
+
+
+          var var_marker2 = new google.maps.Marker({
+            position: var_location2,
+            map: var_map2,
+            maxWidth: 200,
+            maxHeight: 200
+          });
+
+          google.maps.event.addListener(var_marker2, 'click', function() {
+             var_infowindow.open(var_map2,var_marker2);
+          });
+      }
+
+          google.maps.event.addDomListener(window, 'load', map_init2);
+
+      //start of modal google map
+      $('#mapmodals2').on('shown.bs.modal', function () {
+          google.maps.event.trigger(var_map2, "resize");
+          var_map2.setCenter(var_location2);
+      });
+</script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Panna II Garden Indian Restaurant</p>
+	  <a href="#mapmodals3" data-toggle="modal" role="button"><img src="https://yourworldmywardrobe.files.wordpress.com/2015/10/img_6587.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade3" id="mapmodals3">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Panna II Garden Indian Resaurant</h2>
+                <br>
+                <a href= "http://www.yelp.com/biz/panna-ii-garden-indian-restaurant-new-york" style= "font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                <div class= "well">
+                  <p><br><br> This is an Indian resteraunt that is popular more due to the atmosphere than the food. Christmas tree lights shine year-round inside this restaurant. This place is perfect for locals who want to find a new atmosphere to hang out in. (Also, many over-21 locals enjoy the fact that you can bring your own wine or beer).
+                    <br><br><br></p>
+              </div>
+            </div>
+              <div class="col-sm-6">
+                <img src="http://images1.villagevoice.com/imager/u/745x420/6481625/5869103.0.jpg"  class= "img-thumbnail">
+              </div>
+            </div>
+                <h4 style= "font-size: 20;"> Location </h4>
+                <p>  93 1st Avenue #2, New York, NY 10003 </p>
+                <div id="map-container3"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+<script>
+			var var_map3;
+    		var var_location3 = new google.maps.LatLng(40.726284,-73.986570);
+
+     function map_init3() {
+
+            var var_mapoptions3 = {
+              center: var_location3,
+              zoom: 17,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              mapTypeControl: false,
+              panControl:false,
+              rotateControl:false,
+              streetViewControl: false,
+            };
+            var_map3 = new google.maps.Map(document.getElementById("map-container3"),
+                var_mapoptions3);
+
+
+          var var_marker3 = new google.maps.Marker({
+            position: var_location3,
+            map: var_map3,
+            maxWidth: 200,
+            maxHeight: 200
+          });
+
+          google.maps.event.addListener(var_marker3, 'click', function() {
+             var_infowindow.open(var_map3,var_marker3);
+          });
+      }
+
+          google.maps.event.addDomListener(window, 'load', map_init3);
+
+      //start of modal google map
+      $('#mapmodals3').on('shown.bs.modal', function () {
+          google.maps.event.trigger(var_map3, "resize");
+          var_map3.setCenter(var_location3);
+      });
+</script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Conservatory Garden</p>
+	        <a href="#mapmodals4" data-toggle="modal" role="button"><img src="http://www.centralpark.com/updata/Image/attractions/the-summer-conservatory-garden-f.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade4" id="mapmodals4">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Conservatory Garden</h2>
+                <a href= "http://www.yelp.com/biz/the-conservatory-garden-new-york" style="font-size:24; color:black; text-decoration:underline;">Ratings</a>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                <div class= "well">
+                  <p><br><br><br><br>The Conservatory Garden is the only formal garden in Central Park, New York City. It is beautiful garden that many tourists do not take the time to go look at, making it the perfect place for locals. <br><br><br><br><br></p>
+              </div>
+            </div>
+              <div class="col-sm-6">
+                <img src="http://www.centralparknyc.org/assets/images/things-to-see-and-do/conservatory-garden-l.jpg"  class= "img-thumbnail">
+              </div>
+            </div>
+                <h4 style= "font-size: 20;"> Location </h4>
+                  <p> 5th Ave & 105th St, New York, NY</p>
+				              <div id="map-container4"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+      <script>
+            var var_map4;
+              var var_location4 = new google.maps.LatLng(40.793613,-73.951597);
+
+           function map_init4() {
+
+                  var var_mapoptions4 = {
+                    center: var_location4,
+                    zoom: 17,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    mapTypeControl: false,
+                    panControl:false,
+                    rotateControl:false,
+                    streetViewControl: false,
+                  };
+                  var_map4 = new google.maps.Map(document.getElementById("map-container4"),
+                      var_mapoptions4);
+
+
+                var var_marker4 = new google.maps.Marker({
+                  position: var_location4,
+                  map: var_map4,
+                  maxWidth: 200,
+                  maxHeight: 200
+                });
+
+                google.maps.event.addListener(var_marker4, 'click', function() {
+                   var_infowindow.open(var_map4,var_marker4);
+                });
+            }
+
+                google.maps.event.addDomListener(window, 'load', map_init4);
+
+            //start of modal google map
+            $('#mapmodals4').on('shown.bs.modal', function () {
+                google.maps.event.trigger(var_map4, "resize");
+                var_map4.setCenter(var_location4);
+            });
+      </script>
+    </div>
+  </div>
+</div><br><br>
+
+<div class="container-fluid bg-3 text-center">
+  <div class="row">
+    <div class="col-sm-3">
+      <p class = "label">The F.R.I.E.N.D.S. Apartment</p>
+	  <a href="#mapmodals5" data-toggle="modal" role="button"><img src="https://c2.staticflickr.com/2/1120/869395563_8af75b201d_z.jpg?zz=1" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade5" id="mapmodals5">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">The F.R.I.E.N.D.S. Apartment</h2>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                <div class= "well">
+                  <p><br><br><br><br> This is the building that the F.R.I.E.N.D.S. episodes were filmed around. Many locals have not gone there due to the fact that it seems very touristy, however, it tends to be more unknown to tourists in the big city.
+                  <br><br><br><br><br></p>
+              </div>
+            </div>
+              <div class="col-sm-6">
+                <img src="http://vignette1.wikia.nocookie.net/friends/images/e/ee/Monica's_apt..jpg/revision/latest?cb=20110723165536"  class= "img-thumbnail">
+              </div>
+            </div>
+                <h4 style= "font-size: 20;"> Location </h4>
+                <p> 90 Bedford St New York, New York 10014 </p>
+                <div id="map-container5"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+<script>
+			var var_map5;
+    		var var_location5 = new google.maps.LatLng(40.732398,-74.005317);
+
+     function map_init5() {
+
+            var var_mapoptions5 = {
+              center: var_location5,
+              zoom: 17,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              mapTypeControl: false,
+              panControl:false,
+              rotateControl:false,
+              streetViewControl: false,
+            };
+            var_map5 = new google.maps.Map(document.getElementById("map-container5"),
+                var_mapoptions5);
+
+
+          var var_marker5 = new google.maps.Marker({
+            position: var_location5,
+            map: var_map5,
+            maxWidth: 200,
+            maxHeight: 200
+          });
+
+          google.maps.event.addListener(var_marker5, 'click', function() {
+             var_infowindow.open(var_map5,var_marker5);
+          });
+      }
+
+          google.maps.event.addDomListener(window, 'load', map_init5);
+
+      //start of modal google map
+      $('#mapmodals5').on('shown.bs.modal', function () {
+          google.maps.event.trigger(var_map5, "resize");
+          var_map5.setCenter(var_location5);
+      });
+</script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">Tom's Restaurant</p>
+	  	  <a href="#mapmodals6" data-toggle="modal" role="button"><img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Tom's_Restaurant_on_2880_Broadway,_New_York.JPG" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade6" id="mapmodals6">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Tom's Restaurant</h2>
+                <br>
+                <a href= "https://www.tripadvisor.com/Restaurant_Review-g60763-d477317-Reviews-Tom_s_Restaurant-New_York_City_New_York.html" style= "font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                <div class= "well">
+                  <p><br><br><br><br><br><br>This is the restaurant that is shown in the show Seinfield. Much like the F.R.I.E.N.D.S. Apartment, this is popular mainly because of its apperance in the show.
+                    <br><br><br><br><br><br></p>
+              </div>
+            </div>
+              <div class="col-sm-6">
+                <img src="http://wiki.wodgotham.com/images/2/25/Toms_interior.jpg"  class= "img-thumbnail" >
+              </div>
+            </div>
+                <h4 style= "font-size: 20;"> Location </h4>
+                <p> 2880 Broadway, New York, NY 10025 </p>
+                <div id="map-container6"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+<script>
+			var var_map6;
+    		var var_location6 = new google.maps.LatLng(40.805478,-73.965225);
+
+     function map_init6() {
+
+            var var_mapoptions6 = {
+              center: var_location6,
+              zoom: 17,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              mapTypeControl: false,
+              panControl:false,
+              rotateControl:false,
+              streetViewControl: false,
+            };
+            var_map6 = new google.maps.Map(document.getElementById("map-container6"),
+                var_mapoptions6);
+
+
+          var var_marker6 = new google.maps.Marker({
+            position: var_location6,
+            map: var_map6,
+            maxWidth: 200,
+            maxHeight: 200
+          });
+
+          google.maps.event.addListener(var_marker6, 'click', function() {
+             var_infowindow.open(var_map6,var_marker6);
+          });
+      }
+
+          google.maps.event.addDomListener(window, 'load', map_init6);
+
+      //start of modal google map
+      $('#mapmodals6').on('shown.bs.modal', function () {
+          google.maps.event.trigger(var_map6, "resize");
+          var_map6.setCenter(var_location6);
+      });
+</script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">Love Quotes in Central Park</p>
+	  <a href="#mapmodals7" data-toggle="modal" role="button"><img src="http://www.thewholeworldisaplayground.com/wp-content/uploads/2015/03/Secret-New-York-19.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade7" id="mapmodals7">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Love Quotes in Central Park</h2>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                <div class= "well" >
+                  <p><br><br><br><br>Around Central Park there are many plagues with different Love Quotes, ones that people used to propose to each other or just simply because they liked that quotation. This is a really cute location to go on a stroll in as it is Central Park.<br><br><br><br><br></p>
+              </div>
+            </div>
+              <div class="col-sm-6">
+                <img src="http://www.thearilsbowl.com/wp-content/uploads/2016/01/centralpark08.jpg"  class= "img-thumbnail">
+              </div>
+            </div>
+                <h4 style= "font-size: 20;"> Location</h4>
+				<p>  New York, NY </p>
+                <div id="map-container7"></div>
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+	  </div>
+
+<script>
+			var var_map7;
+    		var var_location7 = new google.maps.LatLng(40.771133,-73.974187);
+
+     function map_init7() {
+
+            var var_mapoptions7 = {
+              center: var_location7,
+              zoom: 17,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              mapTypeControl: false,
+              panControl:false,
+              rotateControl:false,
+              streetViewControl: false,
+            };
+            var_map7 = new google.maps.Map(document.getElementById("map-container7"),
+                var_mapoptions7);
+
+
+          var var_marker7 = new google.maps.Marker({
+            position: var_location7,
+            map: var_map7,
+            maxWidth: 200,
+            maxHeight: 200
+          });
+
+          google.maps.event.addListener(var_marker7, 'click', function() {
+             var_infowindow.open(var_map7,var_marker7);
+          });
+      }
+
+          google.maps.event.addDomListener(window, 'load', map_init7);
+
+      //start of modal google map
+      $('#mapmodals7').on('shown.bs.modal', function () {
+          google.maps.event.trigger(var_map7, "resize");
+          var_map7.setCenter(var_location7);
+      });
+</script>
+
+    <div class="col-sm-3">
+      <p class = "label">Broadway Bite</p>
+      <!-- Trigger the modal with a button -->
+      <a href="#mapmodals8" data-toggle="modal" role="button"><img src="dc.cover.png" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade8" id="mapmodals8">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Broadway Bite</h2>
+              </div>
+              <div class="modal-body">
+                <div class= "well" >
+                  <p><br><br><br>Broadway Bite is a website that tells you which shows are coming up and which theater one can see them in. In addition, there is a place where you can see which stars are in what shows, and when shows are closing. The user is also able to take a quiz that helps them decide what show they should watch.
+                  <br><br><br></p>
+              </div>
+            </div>
+                <h4 style= "font-size: 20;">Broadway Bite's Website </h4>
+				<a href="https://www.broadway.com" target="_blank"><img src="dc.cover.png" class="img-thumbnail" alt= "Image">
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+	  </div>
+    </div>
+  </div>
+</div><br><br>
+
+<footer class="container-fluid text-center">
+  <p class = "label">@ 2016 ExploR, LuV Inc.</p>
+</footer>
+
+</body>
+</html>
