@@ -121,7 +121,7 @@ echo "Your mail has been sent successfuly ! Thank you for your input";
 ?></h3>
 </div>
 
-<div class="well" style="backgroud-color: #ffff99;">
+<div class="well" style="background-color: #ffff99;">
  <p style ="color:red;"> **</p><p style="color:blue;"> Note: There may be locations in your city filed under other cites that are in close vicinity. If your city is missing, check cities that are close by and see if there are any locations in your area. If you still cannot find anything, contact us and add your city! </p>
    <br>
 <p style ="color:red;">***</p><p style="color:blue;"> Also Note: It may take us a little while to add a new city or a new location. Please be patient :-)</p>
