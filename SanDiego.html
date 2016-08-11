@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>San Diego</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=BioRhyme" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+
+  <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0Zh4_1SatQ2jWskLLUW2uZX4GppID_8c&callback=map_init6">
+    </script>
+
+  <style>
+  #map-container, #map-container2, #map-container3, #map-container4, #map-container5, #map-container6, #map-container7, #map-container8 { height: 450px }
+
+
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+     #header{
+       font-family: 'BioRhyme', serif;
+       color: black;
+
+     }
+     .label{
+       color: black;
+       font-size: 100%;
+       margin: auto;
+     }
+
+    .btn, .btn-info, .btn-lg {
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+
+     .jumbotron{
+       background-image: url(http://shannonanderson.com/wp-content/uploads/2015/12/pic-4-1.jpg);
+       height: 100%;
+       background-attachment: fixed;
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: cover;
+       min-height: 390px;
+     }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ExploR</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Cities</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="AddCity.php">Add A City</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1 id = "header">San Diego</h1>
+    <p><font color = "black">City in Motion</font></p>
+  </div>
+</div>
+
+<div class="container-fluid bg-3 text-center">
+  <h3><font color = "black"><u>ExploR San Diego!</u></font></h3><br>
+  <div class="row">
+
+    <div class="col-sm-3">
+      <p class = "label">Mount Soledad </p>
+      <a href="#mapmodals" data-toggle="modal" role="button"><img src="http://www.americanfreedomlawcenter.org/wp-content/uploads/editor/Mt%20Soledad.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade" id="mapmodals">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Mount Soledad</h2>
+                <br>
+                <a href= "http://www.yelp.com/biz/mount-soledad-veterans-memorial-la-jolla" style= "font-size:24; color:black; text-decoration:underline;">Ratings</a>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                <div class= "well" >
+                  <p> <br><br>The Veterans Memorial is one of the finest memorials ever built. Offering a breathtaking view of San Diego including the beach, city skyline, and beach houses.
+                    To add a personal element, the memorial contains war veterans encrusted on the walls. This unique memorial is one of the beautiful wonders of San Diego that goes
+                    overlooked. To enjoy a breathtaking scenery, travel to Mount Soledads to experience a true wonder.
+                  <br><br></p>
+              </div>
+            </div>
+              <div class="col-sm-6">
+                <img src="http://images.csmonitor.com/csm/2013/12/1213-judge-mt-soledad-cross.jpg?alias=standard_600x400"  class= "img-thumbnail">
+              </div>
+            </div>
+                <h4 style= "font-size: 20;"> Location </h4>
+                <p>  6905 La Jolla Scenic Dr S, La Jolla, CA 92037 </p>
+                <div id="map-container"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+      <script>
+      			var var_map;
+          		var var_location = new google.maps.LatLng(32.839809,-117.244709);
+
+           function map_init() {
+
+                  var var_mapoptions = {
+                    center: var_location,
+                    zoom: 17,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    mapTypeControl: false,
+                    panControl:false,
+                    rotateControl:false,
+                    streetViewControl: false,
+                  };
+                  var_map = new google.maps.Map(document.getElementById("map-container"),
+                      var_mapoptions);
+
+
+                var var_marker = new google.maps.Marker({
+                  position: var_location,
+                  map: var_map,
+
+                  maxWidth: 200,
+                  maxHeight: 200
+                });
+
+                google.maps.event.addListener(var_marker, 'click', function() {
+                   var_infowindow.open(var_map,var_marker);
+                });
+            }
+
+                google.maps.event.addDomListener(window, 'load', map_init);
+
+            //start of modal google map
+            $('#mapmodals').on('shown.bs.modal', function () {
+                google.maps.event.trigger(var_map, "resize");
+                var_map.setCenter(var_location);
+            });
+      </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Sunny Jim's Cave</p>
+      <a href="#mapmodals2" data-toggle="modal" role="button"><img src="http://farm8.staticflickr.com/7326/9398831536_b351fee20a.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade2" id="mapmodals2">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Sunny Jim's Cave</h2>
+  				<a href="http://www.yelp.com/biz/sunny-jim-cave-la-jolla" style= "font-size:24; color:black; text-decoration:underline;">Ratings</a>
+  			  <br>
+  			  </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br><br><br><br><br> Inside a small wood-shingled building on La Jolla’s oceanfront Coast Blvd lies a beach-themed gift shop and access to one of La Jolla’s coolest attractions.
+                      The Sunny Jim Cave Store has the only entrance to any sea cave in California that you can access via land. The caverns within the cave are rich with beautiful colorings from earthly mineral deposits.
+                      Come take a voyage with us to this very popular place to visit and unique one of a kind place located right in the heart of La Jolla Village.
+
+                    <br><br><br><br><br><br><br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://farm4.staticflickr.com/3834/9396053031_aee4e7a2f1.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p> 1325 Coast Blvd, La Jolla, CA 92037 </p>
+                  <div id="map-container2"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  <script>
+  			var var_map2;
+      		var var_location2 = new google.maps.LatLng(32.849125,-117.270385);
+
+       function map_init2() {
+
+              var var_mapoptions2 = {
+                center: var_location2,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map2 = new google.maps.Map(document.getElementById("map-container2"),
+                  var_mapoptions2);
+
+
+            var var_marker2 = new google.maps.Marker({
+              position: var_location2,
+              map: var_map2,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker2, 'click', function() {
+               var_infowindow.open(var_map2,var_marker2);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init2);
+
+        //start of modal google map
+        $('#mapmodals2').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map2, "resize");
+            var_map2.setCenter(var_location2);
+        });
+  </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Churros El Tigre</p>
+      <a href="#mapmodals3" data-toggle="modal" role="button"><img src="http://californiathroughmylens.com/wp-content/uploads/2013/10/Churros-El-Tigre-7.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade3" id="mapmodals3">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Churros El Tigre</h2>
+                  <br>
+                  <a href= "http://www.yelp.com/biz/churros-el-tigre-san-diego" style= "font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br><br><br> Do you enjoy churros? Then head on down to Churros El Tigre to devour possibly the world's tasiest churros. Their churros are so fluffy and airy on the inside while maintaining the perfect crispyness on the outside and coated with delightful cinnamoney-sugary goodness!
+                    <br><br><br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://s3-media3.fl.yelpcdn.com/bphoto/wLOUPffqWWFgIxe1hKdlqQ/o.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p>  Las Americas Premium Outlets, 4211 Camino De La Plaza, San Ysidro, CA 92173</p>
+                  <div id="map-container3"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  <script>
+  			var var_map3;
+      		var var_location3 = new google.maps.LatLng(32.543184,-117.042532);
+
+       function map_init3() {
+
+              var var_mapoptions3 = {
+                center: var_location3,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map3 = new google.maps.Map(document.getElementById("map-container3"),
+                  var_mapoptions3);
+
+
+            var var_marker3 = new google.maps.Marker({
+              position: var_location3,
+              map: var_map3,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker3, 'click', function() {
+               var_infowindow.open(var_map3,var_marker3);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init3);
+
+        //start of modal google map
+        $('#mapmodals3').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map3, "resize");
+            var_map3.setCenter(var_location3);
+        });
+  </script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">James Coffee Co.</p>
+      <a href="#mapmodals4" data-toggle="modal" role="button"><img src="http://brotures.us/wp-content/uploads/2015/10/JAMESCOFFEE.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+  <!-- Modal -->
+    <div class="modal fade4" id="mapmodals4">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">James Coffee Co.</h2>
+            <a href= "http://www.yelp.com/biz/james-coffee-co-san-diego" style="font-size:24; color:black; text-decoration:underline;">Ratings</a>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-6">
+            <div class= "well">
+              <p><br><br><br><br> James Coffee offers an exceptional coffee service providing its customers with exclusive coffee flavors
+                set in an unique and relaxed enviornment. The staff is also exteremly pleasant, adding to the relaxed enviornment.  <br><br><br><br></p>
+          </div>
+        </div>
+          <div class="col-sm-6">
+            <img src="https://photos.smugmug.com/Restaurants-and-Bars/James-Coffee-Co/i-Q5SnFkp/0/L/James%20Coffee%20Co-7757-L.jpg"  class= "img-thumbnail">
+          </div>
+        </div>
+            <h4 style= "font-size: 20;"> Location </h4>
+              <p>2355 India St, San Diego, CA 92101</p>
+                  <div id="map-container4"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="close" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </div><!-- /container -->
+  <script>
+        var var_map4;
+          var var_location4 = new google.maps.LatLng(32.729183,-117.170359);
+
+       function map_init4() {
+
+              var var_mapoptions4 = {
+                center: var_location4,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map4 = new google.maps.Map(document.getElementById("map-container4"),
+                  var_mapoptions4);
+
+
+            var var_marker4 = new google.maps.Marker({
+              position: var_location4,
+              map: var_map4,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker4, 'click', function() {
+               var_infowindow.open(var_map4,var_marker4);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init4);
+
+        //start of modal google map
+        $('#mapmodals4').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map4, "resize");
+            var_map4.setCenter(var_location4);
+        });
+  </script>
+</div>
+</div>
+</div><br><br>
+
+
+<div class="container-fluid bg-3 text-center">
+  <div class="row">
+    <div class="col-sm-3">
+      <p class = "label">Puesto Mexican Street Food</p>
+      <a href="#mapmodals5" data-toggle="modal" role="button"><img src="http://www.gannett-cdn.com/-mm-/aeabe33bbcfee15457cf5d0a47ee0667eea05fe4/c=306-0-5095-3601&r=x513&c=680x510/local/-/media/2015/01/16/USATODAY/ExperienceFoodAndWine/635570025098327236-Puesto-Mexican-street-food-credit-Sonya-Yu.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade5" id="mapmodals5">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Puesto Mexican Street Food</h2>
+                  <a href="https://www.tripadvisor.com/Restaurant_Review-g60750-d5558664-Reviews-Puesto_Mexican_Street_Food-San_Diego_California.html" style="font-size:24; color:black; text-decoration:underline;">Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br><br><br> <br><br><br>Puesto is known for its refined Mexican Street Food. With its innovative menu with cocktails and tacos, this restaurant is a keeper.
+                    It combines the style of a typical restaurant and a taco truck into a new unique creation. Visit this exquisite place so you're not missing out! <br><br><br><br><br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://www.lajollabluebook.com/uploads/slidePhotos/7474c097f96465d4cd7bc7b55ccd45cf.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p> 1026 Wall St, La Jolla, CA 92037</p>
+                  <div id="map-container5"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  <script>
+  			var var_map5;
+      		var var_location5 = new google.maps.LatLng(32.846984,-117.273820);
+
+       function map_init5() {
+
+              var var_mapoptions5 = {
+                center: var_location5,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map5 = new google.maps.Map(document.getElementById("map-container5"),
+                  var_mapoptions5);
+
+
+            var var_marker5 = new google.maps.Marker({
+              position: var_location5,
+              map: var_map5,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker5, 'click', function() {
+               var_infowindow.open(var_map5,var_marker5);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init5);
+
+        //start of modal google map
+        $('#mapmodals5').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map5, "resize");
+            var_map5.setCenter(var_location5);
+        });
+  </script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">Wow Wow Waffle </p>
+      <a href="#mapmodals6" data-toggle="modal" role="button"><img src="http://www.thecollaboreat.com/wp-content/uploads/2014/11/WWWaffle3.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+    <!-- Modal -->
+      <div class="modal fade6" id="mapmodals6">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Wow Wow Waffle</h2>
+              <br>
+              <a href= "http://www.yelp.com/biz/wow-wow-waffle-san-diego-2" style= "font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6">
+              <div class= "well">
+                <p><br><br><br><br> Waffle lovers rejoice, this laid-back spot serving housemade liege waffles with a variety of sweet and savory toppings exists in San Diego behind a local
+                  laundromat. Don't let the location fool you; this is truly a hidden gem in California. These one-of-a-kind waffles are exclusive to its brand and <thead>
+                    savory flavors will stay with you for a lifetime and will only leave you wanting more.
+                  </thead>
+                  <br><br><br></p>
+            </div>
+          </div>
+            <div class="col-sm-6">
+              <img src="https://lh5.googleusercontent.com/-43qoCp7N3m0/U8OTh2hWpyI/AAAAAAAEnuw/QnLP_xoH_D4/s800/wow-wow-waffle-3.jpg"  class= "img-thumbnail" >
+            </div>
+          </div>
+              <h4 style= "font-size: 20;"> Location </h4>
+              <p>  3519 30th St, San Diego, CA 92104 </p>
+              <div id="map-container6"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </div><!-- /container -->
+<script>
+    var var_map6;
+      var var_location6 = new google.maps.LatLng(32.742586,-117.129898);
+
+   function map_init6() {
+
+          var var_mapoptions6 = {
+            center: var_location6,
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: false,
+            panControl:false,
+            rotateControl:false,
+            streetViewControl: false,
+          };
+          var_map6 = new google.maps.Map(document.getElementById("map-container6"),
+              var_mapoptions6);
+
+
+        var var_marker6 = new google.maps.Marker({
+          position: var_location6,
+          map: var_map6,
+          maxWidth: 200,
+          maxHeight: 200
+        });
+
+        google.maps.event.addListener(var_marker6, 'click', function() {
+           var_infowindow.open(var_map6,var_marker6);
+        });
+    }
+
+        google.maps.event.addDomListener(window, 'load', map_init6);
+
+    //start of modal google map
+    $('#mapmodals6').on('shown.bs.modal', function () {
+        google.maps.event.trigger(var_map6, "resize");
+        var_map6.setCenter(var_location6);
+    });
+</script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">Harry's Coffee Shop</p>
+      <a href="#mapmodals7" data-toggle="modal" role="button"><img src="http://static1.squarespace.com/static/532a0943e4b07e365bab0e46/t/5688cd1c1c1210fead04e53e/1451806183447/IMG_1844.jpg?format=1500w" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade7" id="mapmodals7">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Harry's Coffee Shop</h2>
+                  <a href = "http://www.yelp.com/biz/harrys-coffee-shop-la-jolla" style="font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well" >
+                    <p><br><br> A top rated family joint serving the people of La Jolla, San Diego also was featured on Food Network itself! This restaurant offers quality meals at reasonable prices. This family-friendly joint serves
+                      delcious breakfast and an apetizing lunch. The warm enviornment and the friendly people makes for a homely feel. Some might even argue it's home away from home.   <br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://www.lajollabluebook.com/blog/wp-content/uploads/2014/07/harrys.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location</h4>
+  				<p> 7545 Girard Ave, La Jolla, CA 92037 </p>
+                  <div id="map-container7"></div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  	  </div>
+
+  <script>
+  			var var_map7;
+      		var var_location7 = new google.maps.LatLng(32.841404,-117.272536);
+
+       function map_init7() {
+
+              var var_mapoptions7 = {
+                center: var_location7,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map7 = new google.maps.Map(document.getElementById("map-container7"),
+                  var_mapoptions7);
+
+
+            var var_marker7 = new google.maps.Marker({
+              position: var_location7,
+              map: var_map7,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker7, 'click', function() {
+               var_infowindow.open(var_map7,var_marker7);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init7);
+
+        //start of modal google map
+        $('#mapmodals7').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map7, "resize");
+            var_map7.setCenter(var_location7);
+        });
+  </script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">Torrey Pines State Natural Reserve</p>
+      <a href="#mapmodals8" data-toggle="modal" role="button"><img src="https://upload.wikimedia.org/wikipedia/commons/8/89/TorreyPinesBeach2008.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade8" id="mapmodals8">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Torrey Pines State Natural Reserve</h2>
+                  <a href = "https://www.tripadvisor.com/Attraction_Review-g60750-d208324-Reviews-Torrey_Pines_State_Natural_Reserve-San_Diego_California.html" style="font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well" >
+                    <p><br><br><br><br> Although not your typical tourist place, Torrey Pines offers a scenic view and is even home to the nation's rarest pine tree,Pinus torreyana. This natural reserve provides
+                      refugee to various animals and is visited my travelers worldwide. This way the reserve serves to be a nautral beauty and consequently spreading awareness  <br><br><br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://www.americansouthwest.net/california/photographs700/torreyflowers.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location</h4>
+  				<p>12600 N Torrey Pines Rd, La Jolla, CA 92037</p>
+                  <div id="map-container8"></div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  	  </div>
+    </div>
+    </div><br><br>
+
+  <script>
+  			var var_map8;
+      		var var_location8 = new google.maps.LatLng(32.933677,-117.260678);
+
+       function map_init8() {
+
+              var var_mapoptions8 = {
+                center: var_location8,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map8 = new google.maps.Map(document.getElementById("map-container8"),
+                  var_mapoptions8);
+
+
+            var var_marker8 = new google.maps.Marker({
+              position: var_location8,
+              map: var_map8,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker8, 'click', function() {
+               var_infowindow.open(var_map8,var_marker8);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init8);
+
+        //start of modal google map
+        $('#mapmodals8').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map8, "resize");
+            var_map8.setCenter(var_location8);
+        });
+  </script>
+
+
+<footer class="container-fluid text-center">
+  <p class = "label">@ 2016 ExploR, LuV Inc.</p>
+</footer>
+
+</body>
+</html>

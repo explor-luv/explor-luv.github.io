@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Pittsburgh</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=BioRhyme" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+
+  <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0Zh4_1SatQ2jWskLLUW2uZX4GppID_8c&callback=map_init6">
+    </script>
+
+  <style>
+    #map-container, #map-container2, #map-container3, #map-container4, #map-container5, #map-container6, #map-container7, #map-container8 { height: 450px }
+
+
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+     #header{
+       font-family: 'BioRhyme', serif;
+       color: black;
+
+     }
+     .label{
+       color: black;
+       font-size: 100%;
+       margin: auto;
+     }
+
+    .btn, .btn-info, .btn-lg {
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+
+     .jumbotron{
+       background-image: url(Pittsburgh.jpg);
+       height: 100%;
+       background-attachment: fixed;
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: cover;
+       min-height: 390px;
+     }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ExploR</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Cities</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="AddCity.php">Add A City</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1 id = "header">Pittsburgh</h1>
+    <p><font color = "black">The Golden Triangle</font></p>
+  </div>
+</div>
+
+<div class="container-fluid bg-3 text-center">
+  <h3><font color = "black"><u>ExploR Pittsburgh!</u></font></h3><br>
+  <div class="row">
+
+    <div class="col-sm-3">
+      <p class = "label">Bayardstown </p>
+      <!-- Trigger the modal with a button -->
+	   <a href="#mapmodals" data-toggle="modal" role="button"><img src="http://bayardstown.com/imgs/lights.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade" id="mapmodals">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Bayardstown</h2>
+                <br>
+                <a href= "https://www.yelp.com/biz/bayardstown-social-club-pittsburgh" style= "font-size:24; color:black; text-decoration:underline;">Ratings</a>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                <div class= "well" >
+                  <p> <br> Bayardstown is a members only outdoor social club in the Strip District of Pittsburgh that offers a backyard space to gather, eat, and drink. Bayardstown is bring your own beer and bring your own meat —you can bring and grill your own food and bring in alcohol with no corkage fee. One thing to note is that with the exception of occasional food trucks, you can't buy food onsite. Though this site is very exclusive, it is a great way for locals to get to know people around them.
+                  <br></p>
+              </div>
+            </div>
+              <div class="col-sm-6">
+                <img src="https://s3-media1.fl.yelpcdn.com/bphoto/3PSy6yIuAY0_dySdpkC2GA/ls.jpg"  class= "img-thumbnail">
+              </div>
+            </div>
+                <h4 style= "font-size: 20;"> Location </h4>
+                <p>  3008 Penn Ave, Pittsburgh, PA 15201 </p>
+                <div id="map-container"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+      <script>
+      			var var_map;
+          		var var_location = new google.maps.LatLng(40.458874,-79.972265);
+
+           function map_init() {
+
+                  var var_mapoptions = {
+                    center: var_location,
+                    zoom: 17,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    mapTypeControl: false,
+                    panControl:false,
+                    rotateControl:false,
+                    streetViewControl: false,
+                  };
+                  var_map = new google.maps.Map(document.getElementById("map-container"),
+                      var_mapoptions);
+
+
+                var var_marker = new google.maps.Marker({
+                  position: var_location,
+                  map: var_map,
+
+                  maxWidth: 200,
+                  maxHeight: 200
+                });
+
+                google.maps.event.addListener(var_marker, 'click', function() {
+                   var_infowindow.open(var_map,var_marker);
+                });
+            }
+
+                google.maps.event.addDomListener(window, 'load', map_init);
+
+            //start of modal google map
+            $('#mapmodals').on('shown.bs.modal', function () {
+                google.maps.event.trigger(var_map, "resize");
+                var_map.setCenter(var_location);
+            });
+      </script>
+
+    <div class="col-sm-3">
+      <p class = "label">Canton Avenue</p>
+	  <a href="#mapmodals2" data-toggle="modal" role="button"><img src="http://www.bicycling.com/sites/bicycling.com/files/styles/slideshow-desktop/public/canton-ave.jpg?itok=19HBUATX" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade2" id="mapmodals2">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Canton Avenue</h2>
+  				<a href="https://www.yelp.com/biz/canton-avenue-pittsburgh" style= "font-size:24; color:black; text-decoration:underline;">Ratings</a>
+  			  <br>
+  			  </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br><br><br><br><br><br><br><br><br> This is the steepest street recorded in the United States. This is not a street to drive down (especially in severe weather conditions), but it is defintely worth while for locals to go check it out and try to walk it, as it is a very unique part of Pittsburgh
+
+                    <br><br><br><br><br><br><br><br><br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://farm3.static.flickr.com/2400/2044606895_e5d656f6c2_o.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p>Canton Ave, Pittsburgh, PA 15216</p>
+                  <div id="map-container2"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  <script>
+  			var var_map2;
+      		var var_location2 = new google.maps.LatLng(40.458874,-79.972265);
+
+       function map_init2() {
+
+              var var_mapoptions2 = {
+                center: var_location2,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map2 = new google.maps.Map(document.getElementById("map-container2"),
+                  var_mapoptions2);
+
+
+            var var_marker2 = new google.maps.Marker({
+              position: var_location2,
+              map: var_map2,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker2, 'click', function() {
+               var_infowindow.open(var_map2,var_marker2);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init2);
+
+        //start of modal google map
+        $('#mapmodals2').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map2, "resize");
+            var_map2.setCenter(var_location2);
+        });
+  </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Bicycle Heaven</p>
+	  <a href="#mapmodals3" data-toggle="modal" role="button"><img src="http://www.goerie.com/storyimage/GE/20150531/LEL03/305319997/AR/0/AR-305319997.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade3" id="mapmodals3">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Bicycle Heaven</h2>
+                  <br>
+                  <a href= "https://www.yelp.com/biz/bicycle-heaven-pittsburgh" style= "font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br><br><br><br><br>  Have you ever seen close to 2,000 bikes, vintage or otherwise, under one roof? The Bicycle Heaven is stuffed with bikes. A place where locals can go buy bikes or get theirs fixed. This is the perfect place for locals who love biking, or just to go look at all of the bikes in one place.
+                    <br><br><br><br><br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://media4.trover.com/T/54f8ae7dae8d8a428b0037f2/fixedw_large_2x.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p>  Casey Industrial Park, 1800 Columbus Ave, Pittsburgh, PA 15233</p>
+                  <div id="map-container3"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  <script>
+  			var var_map3;
+      		var var_location3 = new google.maps.LatLng(40.456334,-80.032401);
+
+       function map_init3() {
+
+              var var_mapoptions3 = {
+                center: var_location3,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map3 = new google.maps.Map(document.getElementById("map-container3"),
+                  var_mapoptions3);
+
+
+            var var_marker3 = new google.maps.Marker({
+              position: var_location3,
+              map: var_map3,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker3, 'click', function() {
+               var_infowindow.open(var_map3,var_marker3);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init3);
+
+        //start of modal google map
+        $('#mapmodals3').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map3, "resize");
+            var_map3.setCenter(var_location3);
+        });
+  </script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">Randyland</p>
+	  <a href="#mapmodals4" data-toggle="modal" role="button"><img src="https://madeinpgh.com/wp-content/uploads/2015/03/randy-land-.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+  <!-- Modal -->
+    <div class="modal fade4" id="mapmodals4">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Randyland</h2>
+            <a href= "https://madeinpgh.com/wp-content/uploads/2015/03/randy-land-.jpg" style="font-size:24; color:black; text-decoration:underline;">Ratings</a>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-6">
+            <div class= "well">
+              <p><br><br> Randyland is a house that has been decorated by the homeowner (Randy). Now locals can go and look at the whimsically painted house, that is in a muesam state now. (To help keep it up and running, people can go donate to the website). <br> <br></p>
+          </div>
+        </div>
+          <div class="col-sm-6">
+            <img src="http://www.roadsideamerica.com/attract/images/pa/PAPITrandy_ks05.jpg"  class= "img-thumbnail">
+          </div>
+        </div>
+            <h4 style= "font-size: 20;"> Location </h4>
+              <p>1501 Arch St, Pittsburgh, PA 15212</p>
+                  <div id="map-container4"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="close" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </div><!-- /container -->
+  <script>
+        var var_map4;
+          var var_location4 = new google.maps.LatLng(40.457929,-80.009737);
+
+       function map_init4() {
+
+              var var_mapoptions4 = {
+                center: var_location4,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map4 = new google.maps.Map(document.getElementById("map-container4"),
+                  var_mapoptions4);
+
+
+            var var_marker4 = new google.maps.Marker({
+              position: var_location4,
+              map: var_map4,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker4, 'click', function() {
+               var_infowindow.open(var_map4,var_marker4);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init4);
+
+        //start of modal google map
+        $('#mapmodals4').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map4, "resize");
+            var_map4.setCenter(var_location4);
+        });
+  </script>
+</div>
+</div>
+</div><br><br>
+
+
+<div class="container-fluid bg-3 text-center">
+  <div class="row">
+    <div class="col-sm-3">
+      <p class = "label">Row House Cinema</p>
+	  <a href="#mapmodals5" data-toggle="modal" role="button"><img src="https://blossomtour.files.wordpress.com/2011/02/screen-shot-2015-04-06-at-10-37-51-am.png" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade5" id="mapmodals5">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Row House Cinema</h2>
+                  <a href="https://blossomtour.files.wordpress.com/2011/02/screen-shot-2015-04-06-at-10-37-51-am.png" style="font-size:24; color:black; text-decoration:underline;">Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br>Row House Cinema is a single screen theater in the historic Lawrenceville neighborhood of Pittsburgh. Each week they choose a new movie theme, which every movie is centered around.
+Their concession stand features natural popcorn with real butter, craft beer, local soft pretzels as well as vegan options. This is a perfect movie theater for locals looking for a new movie experience. <br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://images.dealcurrent.com/dealcurrent/images/96781_large_4.png"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p>4115 Butler St, Pittsburgh, PA 15201</p>
+                  <div id="map-container5"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  <script>
+  			var var_map5;
+      		var var_location5 = new google.maps.LatLng(40.469939,-79.961065);
+
+       function map_init5() {
+
+              var var_mapoptions5 = {
+                center: var_location5,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map5 = new google.maps.Map(document.getElementById("map-container5"),
+                  var_mapoptions5);
+
+
+            var var_marker5 = new google.maps.Marker({
+              position: var_location5,
+              map: var_map5,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker5, 'click', function() {
+               var_infowindow.open(var_map5,var_marker5);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init5);
+
+        //start of modal google map
+        $('#mapmodals5').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map5, "resize");
+            var_map5.setCenter(var_location5);
+        });
+  </script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">TechShop</p>
+	  <a href="#mapmodals6" data-toggle="modal" role="button"><img src="http://cortexstl.com/wp-content/uploads/2014/02/0605_silicon-valley-techshop_400x2802.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+    <!-- Modal -->
+      <div class="modal fade6" id="mapmodals6">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">TechShop</h2>
+              <br>
+              <a href= "https://www.yelp.com/biz/techshop-pittsburgh" style= "font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6">
+              <div class= "well">
+                <p><br><br><br><br> The TechShop is a workplace for locals to come and collaborate or create in an open workspace. In additon, it has classes that can be taken by locals. This place is perfect for the busy local who needs to get work done; simply buy a membership and you can use the space provided.
+                  <br><br><br></p>
+            </div>
+          </div>
+            <div class="col-sm-6">
+              <img src="http://cortexstl.com/wp-content/uploads/2014/02/0605_silicon-valley-techshop_400x2802.jpg"  class= "img-thumbnail" >
+            </div>
+          </div>
+              <h4 style= "font-size: 20;"> Location </h4>
+              <p>  192 Bakery Square Blvd, Pittsburgh, PA 15206 </p>
+              <div id="map-container6"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </div><!-- /container -->
+<script>
+    var var_map6;
+      var var_location6 = new google.maps.LatLng(40.457208,-79.915654);
+
+   function map_init6() {
+
+          var var_mapoptions6 = {
+            center: var_location6,
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: false,
+            panControl:false,
+            rotateControl:false,
+            streetViewControl: false,
+          };
+          var_map6 = new google.maps.Map(document.getElementById("map-container6"),
+              var_mapoptions6);
+
+
+        var var_marker6 = new google.maps.Marker({
+          position: var_location6,
+          map: var_map6,
+          maxWidth: 200,
+          maxHeight: 200
+        });
+
+        google.maps.event.addListener(var_marker6, 'click', function() {
+           var_infowindow.open(var_map6,var_marker6);
+        });
+    }
+
+        google.maps.event.addDomListener(window, 'load', map_init6);
+
+    //start of modal google map
+    $('#mapmodals6').on('shown.bs.modal', function () {
+        google.maps.event.trigger(var_map6, "resize");
+        var_map6.setCenter(var_location6);
+    });
+</script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Cucumber Falls</p>
+	  <a href="#mapmodals7" data-toggle="modal" role="button"><img src="http://static.panoramio.com/photos/large/17589146.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade7" id="mapmodals7">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Cucumber Falls</h2>
+                  <a href = "https://www.tripadvisor.com/Attraction_Review-g53373-d4894144-Reviews-Cucumber_Falls-Ohiopyle_Pennsylvania.html" style="font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well" >
+                    <p><br><br><br> Cucumber Falls is the impressive waterfall in Ohioplye Park. It is a really beautiful piece of nature that locals should go view one a nice day, as it isn't too crowded, but has a nice atmosphere that locals can find away from all the tourists.<br><br> <br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://static.panoramio.com/photos/large/58054195.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location</h4>
+  				<p> Cucumber Falls, Stewart Township, PA </p>
+                  <div id="map-container7"></div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  	  </div>
+
+  <script>
+  			var var_map7;
+      		var var_location7 = new google.maps.LatLng(39.863248,-79.502424);
+
+       function map_init7() {
+
+              var var_mapoptions7 = {
+                center: var_location7,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map7 = new google.maps.Map(document.getElementById("map-container7"),
+                  var_mapoptions7);
+
+
+            var var_marker7 = new google.maps.Marker({
+              position: var_location7,
+              map: var_map7,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker7, 'click', function() {
+               var_infowindow.open(var_map7,var_marker7);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init7);
+
+        //start of modal google map
+        $('#mapmodals7').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map7, "resize");
+            var_map7.setCenter(var_location7);
+        });
+  </script>
+
+    <div class="col-sm-3">
+      <p class = "label">Primanti Bros. Restaurant</p>
+	  <a href="#mapmodals8" data-toggle="modal" role="button"><img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Pittsburgh_Strip_District_Primanti_Bros.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade8" id="mapmodals8">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Primanti Bros. Restaurant</h2>
+                  <a href = "https://www.yelp.com/biz/primanti-bros-pittsburgh-15" style="font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well" >
+                    <p><br> This restaurant has a very unique menu. Their sandwiches are made in a way that is different than others. All sandwiches have coleslaw and french fries along with the rest of the ingredients. It may sound weird, but everyone can attest that it tastes incredible. This is a great place for locals to eat, especially the college students, as there are a couple of colleges within walking distance. <br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="https://pantograph0.goldbely.com/uploads/merchant/main_image/603/primanti-bros.cc58df36774233aabd2e0e9e8a3ec641.png"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location</h4>
+  				<p>3803 Forbes Ave, Pittsburgh, PA 15213</p>
+                  <div id="map-container8"></div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  	  </div>
+    </div>
+    </div><br><br>
+
+  <script>
+  			var var_map8;
+      		var var_location8 = new google.maps.LatLng(40.441777,-79.956956);
+
+       function map_init8() {
+
+              var var_mapoptions8 = {
+                center: var_location8,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map8 = new google.maps.Map(document.getElementById("map-container8"),
+                  var_mapoptions8);
+
+
+            var var_marker8 = new google.maps.Marker({
+              position: var_location8,
+              map: var_map8,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker8, 'click', function() {
+               var_infowindow.open(var_map8,var_marker8);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init8);
+
+        //start of modal google map
+        $('#mapmodals8').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map8, "resize");
+            var_map8.setCenter(var_location8);
+        });
+  </script>
+
+<footer class="container-fluid text-center">
+  <p class = "label">@ 2016 ExploR, LuV Inc.</p>
+</footer>
+
+</body>
+</html>

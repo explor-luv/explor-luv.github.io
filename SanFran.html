@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>San Francisco</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=BioRhyme" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+
+  <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0Zh4_1SatQ2jWskLLUW2uZX4GppID_8c&callback=map_init6">
+    </script>
+
+  <style>
+
+  #map-container, #map-container2, #map-container3, #map-container4, #map-container5, #map-container6, #map-container7, #map-container8 { height: 450px }
+
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+     #header{
+       font-family: 'BioRhyme', serif;
+       color: black;
+
+     }
+     .label{
+       color: black;
+       font-size: 100%;
+       margin: auto;
+     }
+
+    .btn, .btn-info, .btn-lg {
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+
+     .jumbotron{
+       background-image: url(http://www.sanfrancisco.travel/sites/sftraveldev.prod.acquia-sites.com/files/SanFrancisco_0.jpg);
+       height: 100%;
+       background-attachment: fixed;
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: cover;
+       min-height: 390px;
+     }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ExploR</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Cities</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="AddCity.php">Add A City</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1 id = "header">San Francisco</h1>
+    <p><font color = "black">The Golden City</font></p>
+  </div>
+</div>
+
+<div class="container-fluid bg-3 text-center">
+  <h3><font color = "black"><u>ExploR San Francisco!</u></font></h3><br>
+  <div class="row">
+
+    <div class="col-sm-3">
+      <p class = "label">China Beach</p>
+      <a href="#mapmodals" data-toggle="modal" role="button"><img src="https://beachtreasuresandtreasurebeaches.files.wordpress.com/2011/07/07-11-231.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade" id="mapmodals">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">China Beach</h2>
+                <br>
+                <a href= "http://www.yelp.com/biz/china-beach-san-francisco" style= "font-size:24; color:black; text-decoration:underline;">Ratings</a>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                <div class= "well" >
+                  <p> China Beach is a small cove in San Francisco's Sea Cliff neighborhood. It lies between Baker Beach and Lands End and is part of the Golden Gate National Recreation Area. This beach is pretty unknown to most tourists, which makes it perfect for locals to spend the day and relax with beautiful surroundings.
+                  <br></p>
+              </div>
+            </div>
+              <div class="col-sm-6">
+                <img src="http://skimonline.com/wp-content/uploads/2010/05/ChinaBeach-640x250.jpg"  class= "img-thumbnail">
+              </div>
+            </div>
+                <h4 style= "font-size: 20;"> Location </h4>
+                <p>  China Beach, San Francisco, CA 94121 </p>
+                <div id="map-container"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+      <script>
+      			var var_map;
+          		var var_location = new google.maps.LatLng(37.787882,-122.490948);
+
+           function map_init() {
+
+                  var var_mapoptions = {
+                    center: var_location,
+                    zoom: 17,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    mapTypeControl: false,
+                    panControl:false,
+                    rotateControl:false,
+                    streetViewControl: false,
+                  };
+                  var_map = new google.maps.Map(document.getElementById("map-container"),
+                      var_mapoptions);
+
+
+                var var_marker = new google.maps.Marker({
+                  position: var_location,
+                  map: var_map,
+
+                  maxWidth: 200,
+                  maxHeight: 200
+                });
+
+                google.maps.event.addListener(var_marker, 'click', function() {
+                   var_infowindow.open(var_map,var_marker);
+                });
+            }
+
+                google.maps.event.addDomListener(window, 'load', map_init);
+
+            //start of modal google map
+            $('#mapmodals').on('shown.bs.modal', function () {
+                google.maps.event.trigger(var_map, "resize");
+                var_map.setCenter(var_location);
+            });
+      </script>
+
+    <div class="col-sm-3">
+      <p class = "label">Sansome Rooftop Deck</p>
+      <a href="#mapmodals2" data-toggle="modal" role="button"><img src="https://upload.wikimedia.org/wikipedia/commons/d/db/343_Sansome_St._roof_garden,_SF_2.JPG" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade2" id="mapmodals2">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Sansome Rooftop Deck</h2>
+  				<a href="http://www.yelp.com/biz/343-sansome-rooftop-deck-san-francisco" style= "font-size:24; color:black; text-decoration:underline;">Ratings</a>
+  			  <br>
+  			  </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br><br><br><br> This is a privately owned public space, that has breathtaking views and is very well hidden in the busy city of San Francisco. Due to the "hiddenness" of the location, this is the perfect place for locals to hang out.
+                    <br><br><br><br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="https://cdn.shopify.com/s/files/1/0667/0685/files/jenhernandez6_large.png?3159418207570328406"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p> 222 Halleck St, San Francisco, CA 94129 </p>
+                  <div id="map-container2"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  <script>
+  			var var_map2;
+      		var var_location2 = new google.maps.LatLng(37.801523,-122.454587);
+
+       function map_init2() {
+
+              var var_mapoptions2 = {
+                center: var_location2,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map2 = new google.maps.Map(document.getElementById("map-container2"),
+                  var_mapoptions2);
+
+
+            var var_marker2 = new google.maps.Marker({
+              position: var_location2,
+              map: var_map2,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker2, 'click', function() {
+               var_infowindow.open(var_map2,var_marker2);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init2);
+
+        //start of modal google map
+        $('#mapmodals2').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map2, "resize");
+            var_map2.setCenter(var_location2);
+        });
+  </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Workshop Cafe</p>
+      <a href="#mapmodals3" data-toggle="modal" role="button"><img src="http://theshot.coffeeratings.com/wp-content/13/workshopCafe_1531.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade3" id="mapmodals3">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;"> Workshop Cafe</h2>
+                  <br>
+                  <a href= "http://www.yelp.com/biz/workshop-cafe-san-francisco" style= "font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br><br>Coffee & snacks are served in this cafe. There is also work space with hourly-rate WiFi, printers & ergonomic seating, making it the perfect place for locals to go and get work done.
+                    <br><br><br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://sprudge.com/wp-content/uploads/2015/03/fi-di-workshop-concierge-noah-sanders-740x494.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p>  180 Montgomery St #100, San Francisco, CA 94104 </p>
+                  <div id="map-container3"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  <script>
+  			var var_map3;
+      		var var_location3 = new google.maps.LatLng(37.790770,-122.402015);
+
+       function map_init3() {
+
+              var var_mapoptions3 = {
+                center: var_location3,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map3 = new google.maps.Map(document.getElementById("map-container3"),
+                  var_mapoptions3);
+
+
+            var var_marker3 = new google.maps.Marker({
+              position: var_location3,
+              map: var_map3,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker3, 'click', function() {
+               var_infowindow.open(var_map3,var_marker3);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init3);
+
+        //start of modal google map
+        $('#mapmodals3').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map3, "resize");
+            var_map3.setCenter(var_location3);
+        });
+  </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Golden Gate Heights Mosaic Stairway</p>
+      <a href="#mapmodals4" data-toggle="modal" role="button"><img src="https://s-media-cache-ak0.pinimg.com/564x/d8/fb/82/d8fb82858d6b3b586545ad84d531e701.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+  <!-- Modal -->
+    <div class="modal fade4" id="mapmodals4">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Golden Gate Heights Mosaic Stariway</h2>
+            <a href= "https://foursquare.com/v/golden-gate-heights-mosaic-stairway/4b6f45c8f964a5207ae82ce3" style="font-size:24; color:black; text-decoration:underline;">Ratings</a>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-6">
+            <div class= "well">
+              <p><br><br><br><br><br><br><br><br><br>These stairs are beautifully decorated, as they lead you up to the park above it.
+It's a great place to take your friends to show them a nice sunset. It is a little bit of a walk, but even locals can benefit from the extra steps. :) <br><br><br><br><br><br><br><br><br><br><br></p>
+          </div>
+        </div>
+          <div class="col-sm-6">
+            <img src="https://s-media-cache-ak0.pinimg.com/736x/ab/f1/e0/abf1e06105f08878815334b884b6a3af.jpg"  class= "img-thumbnail">
+          </div>
+        </div>
+            <h4 style= "font-size: 20;"> Location </h4>
+              <p>16th Ave, San Francisco, CA 94122</p>
+                  <div id="map-container4"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="close" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </div><!-- /container -->
+  <script>
+        var var_map4;
+          var var_location4 = new google.maps.LatLng(37.790770,-122.402015);
+
+       function map_init4() {
+
+              var var_mapoptions4 = {
+                center: var_location4,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map4 = new google.maps.Map(document.getElementById("map-container4"),
+                  var_mapoptions4);
+
+
+            var var_marker4 = new google.maps.Marker({
+              position: var_location4,
+              map: var_map4,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker4, 'click', function() {
+               var_infowindow.open(var_map4,var_marker4);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init4);
+
+        //start of modal google map
+        $('#mapmodals4').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map4, "resize");
+            var_map4.setCenter(var_location4);
+        });
+  </script>
+</div>
+</div>
+</div><br><br>
+
+
+<div class="container-fluid bg-3 text-center">
+  <div class="row">
+    <div class="col-sm-3">
+      <p class = "label">The Wave Organ</p>
+      <a href="#mapmodals5" data-toggle="modal" role="button"><img src="http://static.panoramio.com/photos/original/10205563.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade5" id="mapmodals5">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">The Wave Organ</h2>
+                  <a href="http://www.yelp.com/biz/wave-organ-san-francisco" style="font-size:24; color:black; text-decoration:underline;">Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br> A beautiful acoustic scultpture located on near the iconic Golden Gate Bridge in San Francisco. It even contains more than
+                                         20 music pipes which extend into the bay. If you visit this hidden gem prepare to hear some harmonious liquid melodies.
+                                         This also makes for a great 360 degree view of the city: Golden Gate Bridge on the left, Angel Island and Alcatraz ahead, FiDi on the right and the marina behind.
+                                                                                    <br><br><br><br><br> </p>
+
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://assets.atlasobscura.com/media/W1siZiIsInVwbG9hZHMvcGxhY2VfaW1hZ2VzLzU1OGEyNTQ1OTBiZTU5OTE3NF8xNjE5MTM0MzA0N19mODAwMzIxNjU4X2suanBnIl0sWyJwIiwidGh1bWIiLCJ4MzkwXHUwMDNlIl0sWyJwIiwiY29udmVydCIsIi1xdWFsaXR5IDkxIC1hdXRvLW9yaWVudCJdXQ"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p> 83 Marina Green Dr, San Francisco, CA 94123 </p>
+                  <div id="map-container5"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  <script>
+  			var var_map5;
+      		var var_location5 = new google.maps.LatLng(37.806630,-122.448014);
+
+       function map_init5() {
+
+              var var_mapoptions5 = {
+                center: var_location5,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map5 = new google.maps.Map(document.getElementById("map-container5"),
+                  var_mapoptions5);
+
+
+            var var_marker5 = new google.maps.Marker({
+              position: var_location5,
+              map: var_map5,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker5, 'click', function() {
+               var_infowindow.open(var_map5,var_marker5);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init5);
+
+        //start of modal google map
+        $('#mapmodals5').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map5, "resize");
+            var_map5.setCenter(var_location5);
+        });
+  </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Cinnaholic</p>
+      <a href="#mapmodals6" data-toggle="modal" role="button"><img src="http://66.media.tumblr.com/28b15a6f0846e132b89885849480ddf4/tumblr_inline_nqmixzqCA61sjkxkt_1280.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+    <!-- Modal -->
+      <div class="modal fade6" id="mapmodals6">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Cinnaholic</h2>
+              <br>
+              <a href= "http://www.yelp.com/search?find_desc=cinnaholic&find_loc=San+Francisco%2C+CA" style= "font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6">
+              <div class= "well">
+                <p><br><br><br><br> Cinnaholic is an acclaimed pastry shop which has over 30 flavors of award-winning gourmet cinnamon rolls!
+                                             According to locals, Cinnaholic is a must shop, and then shop again experience. Everything there is mouthwateringly delicious, customizable, and simply melts in my mouth. Start with a basic cinnamon bun, very good by itself, add from a large selection of glazes, frostings, toppings, and enjoy!
+                  <br><br><br></p>
+            </div>
+          </div>
+            <div class="col-sm-6">
+              <img src="http://farm6.static.flickr.com/5293/5454145630_f19e03c6ee.jpg"  class= "img-thumbnail" >
+            </div>
+          </div>
+              <h4 style= "font-size: 20;"> Location </h4>
+              <p>  2132 Oxford St, Berkeley, CA 94704 </p>
+              <div id="map-container6"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </div><!-- /container -->
+<script>
+    var var_map6;
+      var var_location6 = new google.maps.LatLng(37.870298,-122.266140);
+
+   function map_init6() {
+
+          var var_mapoptions6 = {
+            center: var_location6,
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: false,
+            panControl:false,
+            rotateControl:false,
+            streetViewControl: false,
+          };
+          var_map6 = new google.maps.Map(document.getElementById("map-container6"),
+              var_mapoptions6);
+
+
+        var var_marker6 = new google.maps.Marker({
+          position: var_location6,
+          map: var_map6,
+          maxWidth: 200,
+          maxHeight: 200
+        });
+
+        google.maps.event.addListener(var_marker6, 'click', function() {
+           var_infowindow.open(var_map6,var_marker6);
+        });
+    }
+
+        google.maps.event.addDomListener(window, 'load', map_init6);
+
+    //start of modal google map
+    $('#mapmodals6').on('shown.bs.modal', function () {
+        google.maps.event.trigger(var_map6, "resize");
+        var_map6.setCenter(var_location6);
+    });
+</script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Clarion Alley</p>
+      <a href="#mapmodals7" data-toggle="modal" role="button"><img src="http://cdn.funcheap.com/wp-content/uploads/2013/10/flat550x550075f.u11.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade7" id="mapmodals7">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Clarion Alley</h2>
+                  <a href = "http://www.yelp.com/biz/clarion-alley-san-francisco" style="font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well" >
+                    <p><br><br>Clarion Alley is located in a small street in San Francisco notable for the murals painted by the Clarion Alley Mural Project.
+                      It's simply street art at it's best. Murals with several different artistic styles that address cultural and political issues line either side of Clarion. If you're especially lucky, you might even visit when some of the artists are there and you can watch them in action or talk to them about their work. <br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://66.media.tumblr.com/e5564622d98bd9297c2fbb62803ef15e/tumblr_nhx0cmt3ZY1u61itco1_1280.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location</h4>
+  				<p>  Clarion Alley, San Francisco, CA 94110</p>
+                  <div id="map-container7"></div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  	  </div>
+
+  <script>
+  			var var_map7;
+      		var var_location7 = new google.maps.LatLng(37.763040,-122.419870);
+
+       function map_init7() {
+
+              var var_mapoptions7 = {
+                center: var_location7,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map7 = new google.maps.Map(document.getElementById("map-container7"),
+                  var_mapoptions7);
+
+
+            var var_marker7 = new google.maps.Marker({
+              position: var_location7,
+              map: var_map7,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker7, 'click', function() {
+               var_infowindow.open(var_map7,var_marker7);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init7);
+
+        //start of modal google map
+        $('#mapmodals7').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map7, "resize");
+            var_map7.setCenter(var_location7);
+        });
+  </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Bolinas Ridge</p>
+      <a href="#mapmodals8" data-toggle="modal" role="button"><img src="http://cdn.neonsky.com/4bd5ec0a86209/images/20071130_tam_05-1.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade8" id="mapmodals8">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Bolinas Ridge</h2>
+                  <a href = "http://www.yelp.com/biz/bolinas-ridge-trail-olema" style="font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well" >
+                    <p><br><br> Although it's one of the lesser known gems of San Francicso, the glorifying beauty of this is breathtaking.The trail is well marked, and offers spectacular views along the way.
+                      It features beautiful wild flowers offers a number of activity options and is accessible year-round. Despite it not being an easy cross ride, it proves to be challenging, rewarding, and fun.  <br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://images.fineartamerica.com/images-medium-large-5/bolinas-ridge-sunset-michael-fahey.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location</h4>
+  				<p>  Bolinas Ridge, California 94970</p>
+                  <div id="map-container8"></div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  	  </div>
+    </div>
+    </div><br><br>
+
+  <script>
+  			var var_map8;
+      		var var_location8 = new google.maps.LatLng(37.907222,-122.620278);
+
+       function map_init8() {
+
+              var var_mapoptions8 = {
+                center: var_location8,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map8 = new google.maps.Map(document.getElementById("map-container8"),
+                  var_mapoptions8);
+
+
+            var var_marker8 = new google.maps.Marker({
+              position: var_location8,
+              map: var_map8,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker8, 'click', function() {
+               var_infowindow.open(var_map8,var_marker8);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init8);
+
+        //start of modal google map
+        $('#mapmodals8').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map8, "resize");
+            var_map8.setCenter(var_location8);
+        });
+  </script>
+
+<footer class="container-fluid text-center">
+  <p class = "label">@ 2016 ExploR, LuV Inc.</p>
+</footer>
+
+</body>
+</html>

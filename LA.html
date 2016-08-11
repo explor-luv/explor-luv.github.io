@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Los Angeles</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=BioRhyme" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+
+  <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0Zh4_1SatQ2jWskLLUW2uZX4GppID_8c&callback=map_init6">
+    </script>
+
+  <style>
+#map-container, #map-container2, #map-container3, #map-container4, #map-container5, #map-container6, #map-container7, #map-container8 { height: 450px }
+
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+     #header{
+       font-family: 'BioRhyme', serif;
+       color: black;
+
+     }
+     .label{
+       color: black;
+       font-size: 100%;
+       margin: auto;
+     }
+
+    .btn, .btn-info, .btn-lg {
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+
+     .jumbotron{
+       background-image: url('https://cdnx.jetcdn.com/static/images/destinations/los-angeles/bg3.jpg');
+       height: 100%;
+       background-attachment: fixed;
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: cover;
+       min-height: 390px;
+     }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ExploR</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Cities</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="AddCity.php">Add A City</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1 id = "header">Los Angeles</h1>
+    <p><font color = "black">City of Angels</font></p>
+  </div>
+</div>
+
+<div class="container-fluid bg-3 text-center">
+  <h3><font color = "black"><u>ExploR Los Angeles!</u></font></h3><br>
+  <div class="row">
+
+    <div class="col-sm-3">
+      <p class = "label">Behind the Hollywood Sign</p>
+      <a href="#mapmodals" data-toggle="modal" role="button"><img src="http://images.fineartamerica.com/images-medium-large-5/1-behind-the-hollywood-sign-jeana-childress.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade" id="mapmodals">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Behind the Hollywood Sign</h2>
+                <br>
+                <a href= "https://www.yelp.com/biz/hollywood-sign-hike-los-angeles" style= "font-size:24; color:black; text-decoration:underline;">Ratings</a>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                <div class= "well" >
+                  <p> <br><br><br><br>The Hollywood sign is a large tourist attraction in LA, however, many people only want to get to the front, only about half way up the path. If you continue the trail, you can get behind the sign, which gives a wonderful view of the whole city. This is worth the walk, and may not be as crowded on a cool day.
+                  <br><br><br><br></p>
+              </div>
+            </div>
+              <div class="col-sm-6">
+                <img src="http://images.travelpod.com/tw_slides/ta01/48f/bee/behind-the-hollywood-sign-1-los-angeles.jpg"  class= "img-thumbnail">
+              </div>
+            </div>
+                <h4 style= "font-size: 20;"> Location </h4>
+                <p>  3000 N Beachwood Dr, Los Angeles, CA, 90068, USA </p>
+                <div id="map-container"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+      <script>
+      			var var_map;
+          		var var_location = new google.maps.LatLng(34.124252,-118.319101);
+
+           function map_init() {
+
+                  var var_mapoptions = {
+                    center: var_location,
+                    zoom: 17,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    mapTypeControl: false,
+                    panControl:false,
+                    rotateControl:false,
+                    streetViewControl: false,
+                  };
+                  var_map = new google.maps.Map(document.getElementById("map-container"),
+                      var_mapoptions);
+
+
+                var var_marker = new google.maps.Marker({
+                  position: var_location,
+                  map: var_map,
+
+                  maxWidth: 200,
+                  maxHeight: 200
+                });
+
+                google.maps.event.addListener(var_marker, 'click', function() {
+                   var_infowindow.open(var_map,var_marker);
+                });
+            }
+
+                google.maps.event.addDomListener(window, 'load', map_init);
+
+            //start of modal google map
+            $('#mapmodals').on('shown.bs.modal', function () {
+                google.maps.event.trigger(var_map, "resize");
+                var_map.setCenter(var_location);
+            });
+      </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">The Last Bookstore</p>
+      <a href="#mapmodals2" data-toggle="modal" role="button"><img src="http://lastbookstorela.com/wp-content/uploads/2014/11/JMtunnellarge.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade2" id="mapmodals2">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">The Last Bookstore</h2>
+  				<a href="https://www.yelp.com/biz/the-last-bookstore-los-angeles" style= "font-size:24; color:black; text-decoration:underline;">Ratings</a>
+  			  <br>
+  			  </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br><br><br> This is an airy book & record store offering new & used items in a multilevel space placed beside local artwork. The beautiful interior is the perfect atmosphere for book-loving locals.
+                    <br><br><br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://lastbookstorela.com/wp-content/uploads/2014/11/JNmagnifyingglasseslarge.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p>  453 S Spring St, Los Angeles, CA 90013 </p>
+                  <div id="map-container2"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  <script>
+  			var var_map2;
+      		var var_location2 = new google.maps.LatLng(34.047799,-118.249765);
+
+       function map_init2() {
+
+              var var_mapoptions2 = {
+                center: var_location2,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map2 = new google.maps.Map(document.getElementById("map-container2"),
+                  var_mapoptions2);
+
+
+            var var_marker2 = new google.maps.Marker({
+              position: var_location2,
+              map: var_map2,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker2, 'click', function() {
+               var_infowindow.open(var_map2,var_marker2);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init2);
+
+        //start of modal google map
+        $('#mapmodals2').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map2, "resize");
+            var_map2.setCenter(var_location2);
+        });
+  </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Electric Dusk Drive-In</p>
+      <a href="#mapmodals3" data-toggle="modal" role="button"><img src="http://www.ladowntowner.com/ladtr/assets/uploads/2015/06/edd.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade3" id="mapmodals3">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Electric Dusk Drive-In</h2>
+                  <br>
+                  <a href= "https://www.yelp.com/biz/electric-dusk-drive-in-los-angeles" style= "font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br><br> This is a retro-style drive-in theater that is open year round & features an on-site snack shack. This a perfect place for locals to go hang out on a nice night and watch movies, away from more crowded cinemas.
+                    <br><br><br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://images1.laweekly.com/imager/u/745xauto/6075156/best-place-to-see-movies-outside-electric-dusk.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p> Van de Kamp Bakery Building, 2930 Fletcher Dr, Los Angeles, CA 90065</p>
+                  <div id="map-container3"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  <script>
+  			var var_map3;
+      		var var_location3 = new google.maps.LatLng(34.113920,-118.246648);
+
+       function map_init3() {
+
+              var var_mapoptions3 = {
+                center: var_location3,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map3 = new google.maps.Map(document.getElementById("map-container3"),
+                  var_mapoptions3);
+
+
+            var var_marker3 = new google.maps.Marker({
+              position: var_location3,
+              map: var_map3,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker3, 'click', function() {
+               var_infowindow.open(var_map3,var_marker3);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init3);
+
+        //start of modal google map
+        $('#mapmodals3').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map3, "resize");
+            var_map3.setCenter(var_location3);
+        });
+  </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Descanso Gardens</p>
+      <a href="#mapmodals4" data-toggle="modal" role="button"><img src="http://hometown-pasadena.com/wp-content/uploads/2015/11/DescansoGardens3-JohnStanley.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+  <!-- Modal -->
+    <div class="modal fade4" id="mapmodals4">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Descanso Gardens</h2>
+            <a href= "https://www.yelp.com/biz/caf%C3%A9-at-descanso-gardens-la-canada" style="font-size:24; color:black; text-decoration:underline;">Ratings</a>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-6">
+            <div class= "well">
+              <p><br> Descanso Gardens is a 150 acres botanical garden. It can be rented out for large events, which makes it perfect for locals, as a closeby gorgeous venue. Of course, one can simply go and visit for the day or a few hours depending on that day's adventures. <br><br><br></p>
+          </div>
+        </div>
+          <div class="col-sm-6">
+            <img src="http://heymisterdj.com/blog/wp-content/uploads/2014/08/Descanso-Gardens-Wedding-Rose-Pavilion-770x360.jpg"  class= "img-thumbnail">
+          </div>
+        </div>
+            <h4 style= "font-size: 20;"> Location </h4>
+              <p>1418 Descanso Dr, La Cañada Flintridge, CA 91011</p>
+                  <div id="map-container4"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="close" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </div><!-- /container -->
+  <script>
+        var var_map4;
+          var var_location4 = new google.maps.LatLng(34.201388,-118.210123);
+
+       function map_init4() {
+
+              var var_mapoptions4 = {
+                center: var_location4,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map4 = new google.maps.Map(document.getElementById("map-container4"),
+                  var_mapoptions4);
+
+
+            var var_marker4 = new google.maps.Marker({
+              position: var_location4,
+              map: var_map4,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker4, 'click', function() {
+               var_infowindow.open(var_map4,var_marker4);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init4);
+
+        //start of modal google map
+        $('#mapmodals4').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map4, "resize");
+            var_map4.setCenter(var_location4);
+        });
+  </script>
+</div>
+</div>
+</div><br><br>
+
+
+<div class="container-fluid bg-3 text-center">
+  <div class="row">
+    <div class="col-sm-3">
+      <p class = "label">Echo Park Lake</p>
+      <a href="#mapmodals5" data-toggle="modal" role="button"><img src="https://i.ytimg.com/vi/PuHDhYU5tzQ/maxresdefault.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade5" id="mapmodals5">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Echo Park Lake</h2>
+                  <a href="https://www.yelp.com/biz/echo-park-lake-los-angeles" style="font-size:24; color:black; text-decoration:underline;">Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br><br><br> Echo Park Lake is a beautiful park in LA, with a giant lake in the middle. The quaint cafe in the park brings a lot of locals, along with the boat rides that can be taken in the lake. It is a popular destination for a stroll, or a nice day outside; perfect for locals who want somewhere to spend the day in nature. <br><br><br><br><br> </p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://www.splashofpretty.com/wp-content/uploads/2013/06/photo-11.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p>Echo Park Lake, Los Angeles, CA 90026</p>
+                  <div id="map-container5"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  <script>
+  			var var_map5;
+      		var var_location5 = new google.maps.LatLng(34.072873,-118.260519);
+
+       function map_init5() {
+
+              var var_mapoptions5 = {
+                center: var_location5,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map5 = new google.maps.Map(document.getElementById("map-container5"),
+                  var_mapoptions5);
+
+
+            var var_marker5 = new google.maps.Marker({
+              position: var_location5,
+              map: var_map5,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker5, 'click', function() {
+               var_infowindow.open(var_map5,var_marker5);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init5);
+
+        //start of modal google map
+        $('#mapmodals5').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map5, "resize");
+            var_map5.setCenter(var_location5);
+        });
+  </script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">Cinespia at Hollywood Forever Cemetry</p>
+      <a href="#mapmodals6" data-toggle="modal" role="button"><img src="http://www.lamag.com/wp-content/uploads/sites/9/2015/05/HFC-cinespia-press-img-132.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+    <!-- Modal -->
+      <div class="modal fade6" id="mapmodals6">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Cinespia at Hollywood Forever Cemetry</h2>
+              <br>
+              <a href= "https://www.yelp.com/biz/cinespia-cemetery-screenings-los-angeles" style= "font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6">
+              <div class= "well">
+                <p><br><br><br><br><br><br> This is a place where locals can go see movie screenings under the stars on Fairbanks Lawn. One can bring-your-own picnic, drinks & blankets to use during the movie. This is a popular destination for locals as the weather in the summer is perfect for outdoor movie screenings.
+                  <br><br><br><br><br><br><br><br></p>
+            </div>
+          </div>
+            <div class="col-sm-6">
+              <img src="https://scontent.cdninstagram.com/hphotos-xfa1/t51.2885-15/s640x640/sh0.08/e35/11363741_604670229671659_1193008339_n.jpg"  class= "img-thumbnail" >
+            </div>
+          </div>
+              <h4 style= "font-size: 20;"> Location </h4>
+              <p> Hollywood Forever Cemetery, 6000 Santa Monica Blvd, Los Angeles, CA 90038</p>
+              <div id="map-container6"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </div><!-- /container -->
+<script>
+    var var_map6;
+      var var_location6 = new google.maps.LatLng(34.090491,-118.319811);
+
+   function map_init6() {
+
+          var var_mapoptions6 = {
+            center: var_location6,
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: false,
+            panControl:false,
+            rotateControl:false,
+            streetViewControl: false,
+          };
+          var_map6 = new google.maps.Map(document.getElementById("map-container6"),
+              var_mapoptions6);
+
+
+        var var_marker6 = new google.maps.Marker({
+          position: var_location6,
+          map: var_map6,
+          maxWidth: 200,
+          maxHeight: 200
+        });
+
+        google.maps.event.addListener(var_marker6, 'click', function() {
+           var_infowindow.open(var_map6,var_marker6);
+        });
+    }
+
+        google.maps.event.addDomListener(window, 'load', map_init6);
+
+    //start of modal google map
+    $('#mapmodals6').on('shown.bs.modal', function () {
+        google.maps.event.trigger(var_map6, "resize");
+        var_map6.setCenter(var_location6);
+    });
+</script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">ArcLight Cinemas</p>
+      <a href="#mapmodals7" data-toggle="modal" role="button"><img src="http://blog.parklabrea.com/wp-content/uploads/2015/03/wpid-arclight_0_550.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade7" id="mapmodals7">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">ArcLight Cinemas</h2>
+                  <a href = "https://www.yelp.com/biz/arclight-cinemas-los-angeles" style="font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well" >
+                    <p><br><br><br><br> This cinema is popular among locals due to its high-tech systems and their disruption rules, which mean that the movie experience is better. Though it is on the crowded street of Sunset Blvd, it is still a quieter theater, and with their reserved seating, one does not have to worry about not getting there in time for a seat.<br><br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://photos.cinematreasures.org/production/images/231/1334418288/medium.JPG?1334418288"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location</h4>
+  				<p> 6360 Sunset Blvd, Los Angeles, CA 90028 </p>
+                  <div id="map-container7"></div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  	  </div>
+
+  <script>
+  			var var_map7;
+      		var var_location7 = new google.maps.LatLng(34.097144,-118.327328);
+
+       function map_init7() {
+
+              var var_mapoptions7 = {
+                center: var_location7,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map7 = new google.maps.Map(document.getElementById("map-container7"),
+                  var_mapoptions7);
+
+
+            var var_marker7 = new google.maps.Marker({
+              position: var_location7,
+              map: var_map7,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker7, 'click', function() {
+               var_infowindow.open(var_map7,var_marker7);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init7);
+
+        //start of modal google map
+        $('#mapmodals7').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map7, "resize");
+            var_map7.setCenter(var_location7);
+        });
+  </script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">Chandelier  Tree</p>
+      <a href="#mapmodals8" data-toggle="modal" role="button"><img src="http://www.trbimg.com/img-53c01288/turbine/la-hm-chandelier-tree-20140712" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade8" id="mapmodals8">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Chandelier Tree</h2>
+                  <a href = "https://www.yelp.com/biz/chandelier-tree-los-angeles" style="font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well" >
+                    <p> The Chandelier Tree is such a beautiful stop to make if you're in Silverlake or if you want to drive out to just see it. It is such a pretty thing to see especially as the evening got darker and the lights got brighter. This is on the corner of a house, and the homeowner is actually the one who created it, and luckily they allow people to stand around taking pictures. They take donations, so locals should definitely donate a couple coins to keep it up!</p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://www.welikela.com/wp-content/uploads/2014/07/chandelier-tree-silver-lake.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location</h4>
+  				<p>2811 W Silverlake Dr Los Angeles, CA 90039</p>
+                  <div id="map-container8"></div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+  	  </div>
+    </div>
+    </div><br><br>
+
+  <script>
+  			var var_map8;
+      		var var_location8 = new google.maps.LatLng(34.106868,-118.267536);
+
+       function map_init8() {
+
+              var var_mapoptions8 = {
+                center: var_location8,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map8 = new google.maps.Map(document.getElementById("map-container8"),
+                  var_mapoptions8);
+
+
+            var var_marker8 = new google.maps.Marker({
+              position: var_location8,
+              map: var_map8,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker8, 'click', function() {
+               var_infowindow.open(var_map8,var_marker8);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init8);
+
+        //start of modal google map
+        $('#mapmodals8').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map8, "resize");
+            var_map8.setCenter(var_location8);
+        });
+  </script>
+
+<footer class="container-fluid text-center">
+  <p class = "label">@ 2016 ExploR, LuV Inc.</p>
+</footer>
+
+</body>
+</html>

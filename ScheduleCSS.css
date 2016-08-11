@@ -1,0 +1,82 @@
+.Josefin {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 20px;
+	color:black;
+}
+
+
+#return-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
+    width: 50px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top i {
+    color: white;
+    margin: 0;
+    position: relative;
+    left: 16px;
+    top: 13px;
+    font-size: 19px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+#return-to-top:hover i {
+    color: white;
+    top: 5px;
+}
+
+table {
+	font-family: 'Josefin Sans', sans-serif;
+    border-collapse: collapse;
+	width: 140px;
+	border-spacing: 0;
+	color: #000000;
+	font-size: 19px;
+
+	
+}
+
+
+td, th {
+	font-family: 'Josefin Sans', sans-serif;
+    border: 1px solid #C581FF;
+    text-align: left;
+    padding: 15px;
+	height: 30px;
+
+}
+
+th {
+font-family: 'Josefin Sans', sans-serif;
+background: #C581FF; 
+font-weight: bold;
+font-size: 23px;
+}
+
+td {
+font-family: 'Josefin Sans', sans-serif;
+background: #E5C6FF;
+text-align: center;
+size: 50px;
+}

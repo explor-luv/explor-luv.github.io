@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Chicago</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=BioRhyme" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+
+  <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0Zh4_1SatQ2jWskLLUW2uZX4GppID_8c&callback=map_init6">
+    </script>
+
+  <style>
+
+  #map-container, #map-container2, #map-container3, #map-container4, #map-container5, #map-container6, #map-container7, #map-container8 { height: 450px }
+
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+     #header{
+       font-family: 'BioRhyme', serif;
+       color: black;
+
+     }
+     .label{
+       color: black;
+       font-size: 100%;
+       margin: auto;
+     }
+
+    .btn, .btn-info, .btn-lg {
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+
+     .jumbotron{
+       background-image: url('http://images.trvl-media.com/media/content/shared/images/travelguides/Chicago-and-vicinity-178248-smallTabletRetina.jpg');
+       height: 100%;
+       background-attachment: fixed;
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: cover;
+       min-height: 390px;
+     }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ExploR</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Cities</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="AddCity.php">Add A City</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1 id = "header">Chicago</h1>
+    <p><font color = "black">The Windy City</font></p>
+  </div>
+</div>
+
+<div class="container-fluid bg-3 text-center">
+  <h3><font color = "black"><u>ExploR Chicago!</u></font></h3><br>
+  <div class="row">
+
+    <div class="col-sm-3">
+      <p class = "label">Kuma's Corner</p>
+      <a href="#mapmodals" data-toggle="modal" role="button"><img src="http://chicago.seriouseats.com/images/20111110-alt-hot-dougs3.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+      <!-- Modal -->
+        <div class="modal fade" id="mapmodals">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Kuma's Corner</h2>
+                <br>
+                <a href= "https://www.yelp.com/biz/kumas-corner-chicago" style= "font-size:24; color:black; text-decoration:underline;">Ratings</a>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                <div class= "well" >
+                  <p> <br><br><br>Kuma's Corner is a rambunctious place - loud heavy metal music, lots of people talking, busy serving staff, signs everywhere - making it incredibly fun! There are amazing burger combinations, enormous Mac & Cheese plates, and an extensive list of craft beers available. The portions are huge, so despite everything being incredibly tasty, you might only finish half of your order. If you like spicy, edgy, over-the-top combinations this is your place.
+                  <br><br><br></p>
+              </div>
+            </div>
+              <div class="col-sm-6">
+                <img src="http://chicago.seriouseats.com/images/2013/01/20121303-233409-deep-fried-chicago-kumas-corner-burger.jpg"  class= "img-thumbnail">
+              </div>
+            </div>
+                <h4 style= "font-size: 20;"> Location </h4>
+                <p>  2900 W Belmont Ave Chicago, IL 60618 </p>
+                <div id="map-container"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /container -->
+      <script>
+            var var_map;
+              var var_location = new google.maps.LatLng(41.939544,-87.700450);
+
+           function map_init() {
+
+                  var var_mapoptions = {
+                    center: var_location,
+                    zoom: 17,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    mapTypeControl: false,
+                    panControl:false,
+                    rotateControl:false,
+                    streetViewControl: false,
+                  };
+                  var_map = new google.maps.Map(document.getElementById("map-container"),
+                      var_mapoptions);
+
+
+                var var_marker = new google.maps.Marker({
+                  position: var_location,
+                  map: var_map,
+
+                  maxWidth: 200,
+                  maxHeight: 200
+                });
+
+                google.maps.event.addListener(var_marker, 'click', function() {
+                   var_infowindow.open(var_map,var_marker);
+                });
+            }
+
+                google.maps.event.addDomListener(window, 'load', map_init);
+
+            //start of modal google map
+            $('#mapmodals').on('shown.bs.modal', function () {
+                google.maps.event.trigger(var_map, "resize");
+                var_map.setCenter(var_location);
+            });
+      </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Myopic Books</p>
+      <a href="#mapmodals2" data-toggle="modal" role="button"><img src="http://chicagotonight.wttw.com/sites/default/files/styles/resp-slide/public/article/slideshow-img/MyopicBooks.jpg?itok=4oxGsj7i" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade2" id="mapmodals2">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Myopic Books</h2>
+          <a href="https://www.yelp.com/biz/myopic-books-chicago" style= "font-size:24; color:black; text-decoration:underline;">Ratings</a>
+          <br>
+          </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br><br><br><br><br><br><br><br><br> Myopic Books is the coolest used book store in Chicago and appropriately in the hipster neighborhood of Wicker Park. It's huge (three floors) and their mystery book room is in the basement in a back room (so creepy but worth the look!). If you're a Chicgao local and love a good book store, definitely stop by Myopic Books!
+                    <br><br><br><br><br><br><br><br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://media.tumblr.com/6f25234c38be33db1ef5e729c17e16df/tumblr_inline_mlrw4eKhNK1rgwqth.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p>1564 N Milwaukee Ave, Chicago, IL 60622</p>
+                  <div id="map-container2"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+    <script>
+        var var_map2;
+          var var_location2 = new google.maps.LatLng(41.909786,-87.676938);
+
+       function map_init2() {
+
+              var var_mapoptions2 = {
+                center: var_location2,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map2 = new google.maps.Map(document.getElementById("map-container2"),
+                  var_mapoptions2);
+
+
+            var var_marker2 = new google.maps.Marker({
+              position: var_location2,
+              map: var_map2,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker2, 'click', function() {
+               var_infowindow.open(var_map2,var_marker2);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init2);
+
+        //start of modal google map
+        $('#mapmodals2').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map2, "resize");
+            var_map2.setCenter(var_location2);
+        });
+    </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Original Rainbow Cone</p>
+      <a href="#mapmodals3" data-toggle="modal" role="button"><img src="http://www.ourmaninchicago.net/wp-content/uploads/2016/03/rainbowcone1.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade3" id="mapmodals3">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Original Rainbow Cone</h2>
+                  <br>
+                  <a href= "https://www.yelp.com/biz/original-rainbow-cone-chicago" style= "font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br> One of the mythical ice cream shops of Chicago, the original rainbow cone has been a stalwart at Taste of Chicago every year. So the deal is that they load up 5 different flavors on one cone for you to give you that patented rainbow look. They also have their own flavour called the Palmer house flavour. The coolest part is that they have little cone holders with a little guard to catch any melting ice cream from getting to your hand. There are a ton of other options like sundaes for people who don't want to get adventurous. Rainbow cone is a must visit for any Chicago ice cream fanatic.
+                    <br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="https://s-media-cache-ak0.pinimg.com/736x/bc/2c/81/bc2c81f55ec014621f516a675522483f.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p>9233 S Western Ave, Chicago, IL 60643</p>
+                  <div id="map-container3"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+    <script>
+        var var_map3;
+          var var_location3 = new google.maps.LatLng(41.725467,-87.681920);
+
+       function map_init3() {
+
+              var var_mapoptions3 = {
+                center: var_location3,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map3 = new google.maps.Map(document.getElementById("map-container3"),
+                  var_mapoptions3);
+
+
+            var var_marker3 = new google.maps.Marker({
+              position: var_location3,
+              map: var_map3,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker3, 'click', function() {
+               var_infowindow.open(var_map3,var_marker3);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init3);
+
+        //start of modal google map
+        $('#mapmodals3').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map3, "resize");
+            var_map3.setCenter(var_location3);
+        });
+    </script>
+
+
+    <div class="col-sm-3">
+      <p class = "label">Maggie Daley Park</p>
+      <a href="#mapmodals4" data-toggle="modal" role="button"><img src="http://s3.amazonaws.com/architecture-org/files/buildings/dsc01092.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+    <!-- Modal -->
+    <div class="modal fade4" id="mapmodals4">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Maggie Daley Park</h2>
+            <a href= "https://www.tripadvisor.com/Attraction_Review-g35805-d7340158-Reviews-Maggie_Daley_Park-Chicago_Illinois.html" style="font-size:24; color:black; text-decoration:underline;">Ratings</a>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-6">
+            <div class= "well">
+              <p><br> Maggie Daley park is a series of kids parks for kids ranging 2 to 14+. Each section is clearly labeled for what age groups. Throughout the park are slides, trails, metal horns that let you talk to someone else from the other end of the park, trees, swings, and a splash area. There are benches and grassy areas throughout the park so you can picnic or have a more quieter place to rest in between playing. This is the perfect place for families to hang out for the day. <br><br></p>
+          </div>
+        </div>
+          <div class="col-sm-6">
+            <img src="http://www.mvvainc.com/media/files/e27427d9e140f5128ae7d23501918857.jpg"  class= "img-thumbnail">
+          </div>
+        </div>
+            <h4 style= "font-size: 20;"> Location </h4>
+              <p>337 E Randolph St, Chicago, IL 60601</p>
+                  <div id="map-container4"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="close" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    </div><!-- /container -->
+    <script>
+        var var_map4;
+          var var_location4 = new google.maps.LatLng(41.882789,-87.618923);
+
+       function map_init4() {
+
+              var var_mapoptions4 = {
+                center: var_location4,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map4 = new google.maps.Map(document.getElementById("map-container4"),
+                  var_mapoptions4);
+
+
+            var var_marker4 = new google.maps.Marker({
+              position: var_location4,
+              map: var_map4,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker4, 'click', function() {
+               var_infowindow.open(var_map4,var_marker4);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init4);
+
+        //start of modal google map
+        $('#mapmodals4').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map4, "resize");
+            var_map4.setCenter(var_location4);
+        });
+    </script>
+    </div>
+    </div>
+    </div><br><br>
+
+
+    <div class="container-fluid bg-3 text-center">
+    <div class="row">
+    <div class="col-sm-3">
+      <p class = "label">Big Monster Toys</p>
+      <a href="#mapmodals5" data-toggle="modal" role="button"><img src="http://s3-media2.fl.yelpcdn.com/bphoto/zvzWh9aIQpXgSfGWoDlFOw/o.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade5" id="mapmodals5">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Big Monster Toys</h2>
+                  <a href="https://www.yelp.com/biz/big-monster-toys-chicago" style="font-size:24; color:black; text-decoration:underline;">Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well">
+                    <p><br><br> This is a giant door near Greek town. In the corner of the window there is a little monster popping out. This is a cute place for locals to take their kids for a photo op. Though there isn't a lot to do there, to do it is a cute door to stop by if it is on your way somewhere. <br><br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://www.trbimg.com/img-53da7a38/turbine/chi-big-monster-toys-bsi-photos-20140731-014/1050/1050x591"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location </h4>
+                  <p> 21 S Racine Ave, Chicago, IL 60607 </p>
+                  <div id="map-container5"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+    <script>
+        var var_map5;
+          var var_location5 = new google.maps.LatLng(41.880865,-87.656737);
+
+       function map_init5() {
+
+              var var_mapoptions5 = {
+                center: var_location5,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map5 = new google.maps.Map(document.getElementById("map-container5"),
+                  var_mapoptions5);
+
+
+            var var_marker5 = new google.maps.Marker({
+              position: var_location5,
+              map: var_map5,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker5, 'click', function() {
+               var_infowindow.open(var_map5,var_marker5);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init5);
+
+        //start of modal google map
+        $('#mapmodals5').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map5, "resize");
+            var_map5.setCenter(var_location5);
+        });
+    </script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">Pedway Downtown Pedestrian Walkway System</p>
+      <a href="#mapmodals6" data-toggle="modal" role="button"><img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-04/9/17/enhanced/webdr11/grid-cell-14523-1428613641-0.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+    <!-- Modal -->
+      <div class="modal fade6" id="mapmodals6">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Pedway Downtown Pedestrian Walkway System</h2>
+              <a href="https://www.yelp.com/biz/chicago-pedway-chicago" style="font-size:24; color:black; text-decoration:underline;">Ratings</a>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6">
+              <div class= "well">
+                <p> Best way to travel in Chicago? Perhaps.
+                                            Dryest way to travel in Chicago? Absolutely.
+                                            If you want to avoid horrificly snowy days or a torrential downpour, walking underground in the tunnels below the city may be the key to what you're looking for.It's free and real, but sadly it's limited in where it will get you and how it all connects. The Chicago Pedway is an underground walkway connecting some of the buildings downtown. You can look up a map to see exactly what connects but it's a bit limited and you want to be sure where you're trying to get to connects to where you're coming from AND that it won't close before you get there! Different parts of the walkway close at different times! And after normal business hours, the pedway is nearly all shut down. Walking through the pedway, some areas will be nicer than others. Some have shops and are all decked out while other areas are dank, dark and pungent with urine. You'll see some good and some bad, some areas will be super hot while others will have nice A/C. Most are underground while other sections are elevated or at ground level. It's such a funny little path, completely disjointed but yet all connected.
+                                            So the Chicago Pedway - a good way to get around if you know where you're going on it. If it can be worked into a trip between the CTA red line and going shopping, it's a funny little piece of Chicago that won't cost you a dime and boggles the mind!
+                </p>
+            </div>
+          </div>
+            <div class="col-sm-6">
+              <img src="http://www.ibj.com/ext/resources/IBJ-Print/011810/walkways-main2-2col.jpg?1426301543"  class= "img-thumbnail" >
+            </div>
+          </div>
+              <h4 style= "font-size: 20;"> Starting Location (of the Pedway tours) </h4>
+              <p>1 W Wacker Dr, Chicago, IL 60601</p>
+              <div id="map-container6"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </div><!-- /container -->
+    <script>
+    var var_map6;
+      var var_location6 = new google.maps.LatLng(41.886282,-87.628481);
+
+    function map_init6() {
+
+          var var_mapoptions6 = {
+            center: var_location6,
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: false,
+            panControl:false,
+            rotateControl:false,
+            streetViewControl: false,
+          };
+          var_map6 = new google.maps.Map(document.getElementById("map-container6"),
+              var_mapoptions6);
+
+
+        var var_marker6 = new google.maps.Marker({
+          position: var_location6,
+          map: var_map6,
+          maxWidth: 200,
+          maxHeight: 200
+        });
+
+        google.maps.event.addListener(var_marker6, 'click', function() {
+           var_infowindow.open(var_map6,var_marker6);
+        });
+    }
+
+        google.maps.event.addDomListener(window, 'load', map_init6);
+
+    //start of modal google map
+    $('#mapmodals6').on('shown.bs.modal', function () {
+        google.maps.event.trigger(var_map6, "resize");
+        var_map6.setCenter(var_location6);
+    });
+    </script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">Headquarters Beercade</p>
+      <a href="#mapmodals7" data-toggle="modal" role="button"><img src="http://www.projectparties.com/uploaded_files/411/hq2slide.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade7" id="mapmodals7">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Headquarters Beercade</h2>
+                  <a href = "https://www.yelp.com/biz/headquarters-beercade-river-north-chicago-4" style="font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well" >
+                    <p><br>There could not be a better place for gamers, hipsters, and nerds to hang out. Old school Street Fighter II? Check. Pinball? Check. Little tables next to games to put your drinks? Yup, got those too. The vibe here is on point. Drink menus are inside vintage yearbooks, there are little tiny lockers to charge your cellphone, a fireplace downstairs, and the checks come in ridiculously bad vintage books. They have a great beer selection and wine list too. You should definitely visit if you want fun drinks or a really cool party.  <br><br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://hqbeercade.com/rivernorth/wp-content/uploads/2014/08/HQ-Dont-Grow-Up-Its-A-Trap.png"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location</h4>
+          <p> 833 N Sheffield Ave, Chicago, IL 60657 </p>
+                  <div id="map-container7"></div>
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+      </div>
+
+    <script>
+        var var_map7;
+          var var_location7 = new google.maps.LatLng(41.909852,-87.653076);
+
+       function map_init7() {
+
+              var var_mapoptions7 = {
+                center: var_location7,
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                panControl:false,
+                rotateControl:false,
+                streetViewControl: false,
+              };
+              var_map7 = new google.maps.Map(document.getElementById("map-container7"),
+                  var_mapoptions7);
+
+
+            var var_marker7 = new google.maps.Marker({
+              position: var_location7,
+              map: var_map7,
+              maxWidth: 200,
+              maxHeight: 200
+            });
+
+            google.maps.event.addListener(var_marker7, 'click', function() {
+               var_infowindow.open(var_map7,var_marker7);
+            });
+        }
+
+            google.maps.event.addDomListener(window, 'load', map_init7);
+
+        //start of modal google map
+        $('#mapmodals7').on('shown.bs.modal', function () {
+            google.maps.event.trigger(var_map7, "resize");
+            var_map7.setCenter(var_location7);
+        });
+    </script>
+
+
+
+    <div class="col-sm-3">
+      <p class = "label">Puppet Bike</p>
+      <a href="#mapmodals8" data-toggle="modal" role="button"><img src="http://www.chicagostagereview.com/wp-content/uploads/2010/01/r1-14web.jpg" style= "width:250px; height:150px;" class= "img-thumbnail" alt="Image"></a>
+        <!-- Modal -->
+          <div class="modal fade8" id="mapmodals8">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style= "font-size:64; text-decoration: underline;">Puppet Bike</h2>
+                  <a href = "https://www.yelp.com/biz/puppet-bike-chicago" style="font-size:24; color:black; text-decoration:underline;" >Ratings</a>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                  <div class= "well" >
+                    <p><br> The Puppet Bike is a Chicago favorite - created by Jason Trusty, a performance can last from 2-4 hours and can be quite interactive!  If you're lucky, you can find this custom-built mobile stage in downtown Chicago (around the Loop/Andersonville area), offering puppet shows featuring Clover, Lefty, Monkee, Squirrely, Amtrak, Other, Chock and Namy (the puppets are so cute!).  There's a ghetto blaster installed to provide the music for the puppets to dance to.  They were even featured on late-night talk shows, radios, etc.  Your day can become even better when you get to high-five one of the puppets!  When you get a chance, take some time to stand back and enjoy the show.  One of the puppets even reminds you not to forget to tip if you enjoyed the performance! <br></p>
+                </div>
+              </div>
+                <div class="col-sm-6">
+                  <img src="http://www.chicagoparent.com/media/9746711/web_main.jpg"  class= "img-thumbnail">
+                </div>
+              </div>
+                  <h4 style= "font-size: 20;"> Location</h4>
+          <p>There is no permanent location due to the fact that it is mobile. You can look at there Twitter or Facebook page and see if they updated it for the day, in order to find it.</p>
+
+                <div class="modal-footer">
+                  <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+        </div><!-- /container -->
+      </div>
+    </div>
+    </div><br><br>
+
+
+
+<footer class="container-fluid text-center">
+  <p class = "label">@ 2016 ExploR, LuV Inc.</p>
+</footer>
+
+</body>
+</html>
