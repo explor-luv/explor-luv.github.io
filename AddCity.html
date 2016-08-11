@@ -77,50 +77,7 @@
 <iframe src="https://docs.google.com/a/flinthill.org/forms/d/e/1FAIpQLScpPg1S72AJGfc2jgz8CdZm7FpACqbAjudjSJfdYpW-WA6z-w/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 
 </div>
-<!-- Feedback Form -->
-<form method="post" action="#" id="form" name="form">
-      <input class="w3-input w3-border w3-hover-light-grey" name= "vname" type="text" placeholder="Name">
 
-      <input class="w3-input w3-border w3-hover-light-grey" name="vemail" type="text" placeholder="Email">
-
-  <textarea <input class="w3-input w3-border w3-hover-light-grey" name="msg" type="text" rows="5" cols="25" placeholder="Comment"></textarea>
-<input id="send" name= "submit" type="submit" value="Submit" class="w3-btn w3-section w3-right" style="float:left!important">
-</div>
-</div>
-</div>
-
-</form>
-
-
-<h3><?php
-if(isset($_POST["submit"])){
-// Checking For Blank Fields..
-if($_POST["vname"]==""||$_POST["vemail"]==""||$_POST["msg"]==""){
-echo "Fill All Fields..";
-}else{
-// Check if the "Sender's Email" input field is filled out
-$email=$_POST['vemail'];
-// Sanitize E-mail Address
-$email =filter_var($email, FILTER_SANITIZE_EMAIL);
-// Validate E-mail Address
-$email= filter_var($email, FILTER_VALIDATE_EMAIL);
-if (!$email){
-echo "Invalid Sender's Email";
-}
-else{
-$message = $_POST['msg'];
-$headers = 'From:'. $email2 . "\r\n"; // Sender's Email
-$headers .= 'Cc:'. $email2 . "\r\n"; // Carbon copy to Sender
-// Message lines should not exceed 70 characters (PHP rule), so wrap it
-$message = wordwrap($message, 70);
-// Send Mail By PHP Mail Function
-mail("explor.luv@gmail.com", $message, $headers);
-echo "Your mail has been sent successfuly ! Thank you for your input";
-}
-}
-}
-?></h3>
-</div>
 
 <div class="well" style="background-color: #ffff99;">
  <p style ="color:red;"> **</p><p style="color:blue;"> Note: There may be locations in your city filed under other cites that are in close vicinity. If your city is missing, check cities that are close by and see if there are any locations in your area. If you still cannot find anything, contact us and add your city! </p>
